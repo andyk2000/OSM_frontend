@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint-fix": "eslint --fix src/**/*.ts",
+    "pretty": "prettier --write src/**/*.ts",
+    "prepare": "husky install",
+    "precommit": "npm run lint-fix && npm run pretty",
+    "prepush": "npm run lint"
   },
   "dependencies": {
     "@next/font": "^14.2.3",
@@ -21,6 +26,8 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
+    "husky": "^9.0.11",
+    "prettier": "^3.3.1",
     "typescript": "^5"
   }
 }
