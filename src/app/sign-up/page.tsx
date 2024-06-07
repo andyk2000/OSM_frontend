@@ -55,7 +55,7 @@ export default function SignUp() {
   // };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target
+    const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
@@ -103,7 +103,6 @@ export default function SignUp() {
             Join us, and sell your product to hundreds of thousands of customers
             from all around the world.
           </p>
-
         </div>
       </div>
       <div className={styles.rightSection}>
