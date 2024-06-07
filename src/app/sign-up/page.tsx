@@ -29,19 +29,16 @@ const config: Config = {
 const createPost = async (postData: User) => {
   console.log(postData);
   try {
-    const response = await axios.post(
-      "https://express-sequelize-api-xgit.onrender.com/user/signup",
-      postData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const response = await axios.post(config.backend, postData, {
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
-    return response.data;
+    });
+    return { success: true, data: response.data };
   } catch (error) {
     console.error("Error creating post:", error);
-    throw error;
+    // throw error;
+    return { success: false, message: "something went wrong" };
   }
 };
 
@@ -77,8 +74,16 @@ export default function SignUp() {
     }
 
     try {
-      const data = await createPost(user);
-      setMessage(data);
+      const res = await createPost(user);
+      // setMessage(data);
+      if (res.success && res.data) {
+        setMessage("saved successful");
+        return;
+      }
+
+      if (!res.success && res.message) {
+        setMessage(res.message);
+      }
     } catch (error) {
       setMessage("Sign up failed. Please try again.");
     }
