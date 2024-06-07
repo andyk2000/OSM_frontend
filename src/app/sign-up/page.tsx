@@ -26,7 +26,7 @@ const config: Config = {
   backend: process.env.BACKEND_LINK || "localhost",
 };
 
-export const createPost = async (postData: User) => {
+const createPost = async (postData: User) => {
   console.log(postData);
   try {
     const response = await axios.post(
