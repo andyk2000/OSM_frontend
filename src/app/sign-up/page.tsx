@@ -22,9 +22,9 @@ interface Config {
   backend: string;
 }
 
-const config : Config ={
+const config: Config = {
   backend: process.env.BACKEND_LINK || "localhost",
-}
+};
 
 export const createPost = async (postData: User) => {
   console.log(postData);
