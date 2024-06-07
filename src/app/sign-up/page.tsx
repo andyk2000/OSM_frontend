@@ -3,13 +3,13 @@
 import { useState } from "react";
 import clsx from "clsx";
 import styles from "./page.module.css";
-import { Newsreader } from "@next/font/google";
+// import { Newsreader } from "@next/font/google";
 import axios from "axios";
 
-const newsreader = Newsreader({
-  weight: "700",
-  subsets: ["latin"],
-});
+// const newsreader = Newsreader({
+//   weight: "700",
+//   subsets: ["latin"],
+// });
 
 interface User {
   names: string;
@@ -88,7 +88,7 @@ export default function SignUp() {
     <main className={styles.main}>
       <div className={styles.leftSection}>
         <h1
-          className={clsx(newsreader.className)}
+          // className={clsx(newsreader.className)}
           style={{ fontSize: "2.1rem", fontWeight: "bolder", color: "white" }}
         >
           Come, Join Us
@@ -108,7 +108,7 @@ export default function SignUp() {
       </div>
       <div className={styles.rightSection}>
         <h1
-          className={clsx(newsreader.className)}
+          // className={clsx(newsreader.className)}
           style={{
             fontSize: "2.1rem",
             fontWeight: "bolder",
@@ -191,3 +191,4 @@ export default function SignUp() {
     </main>
   );
 }
+
