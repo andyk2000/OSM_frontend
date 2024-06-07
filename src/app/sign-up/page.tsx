@@ -18,6 +18,14 @@ interface User {
   role: string;
 }
 
+interface Config {
+  backend: string;
+}
+
+const config : Config ={
+  backend: process.env.BACKEND_LINK || "localhost",
+}
+
 export const createPost = async (postData: User) => {
   console.log(postData);
   try {
@@ -33,7 +41,7 @@ export const createPost = async (postData: User) => {
     return response.data;
   } catch (error) {
     console.error("Error creating post:", error);
-    throw error; // Rethrow the error to be caught in the component
+    throw error;
   }
 };
 
@@ -45,14 +53,7 @@ export default function SignUp() {
     role: "customer",
   });
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState(""); // State to hold user feedback
-  // const handleNamesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setUser({ ...user, names: e.target.value });
-  // };
-
-  // const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setUser({ ...user, email: e.target.value });
-  // };
+  const [message, setMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
