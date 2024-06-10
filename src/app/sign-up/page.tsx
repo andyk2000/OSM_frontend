@@ -5,6 +5,7 @@ import clsx from "clsx";
 import styles from "./page.module.css";
 import { Newsreader } from "@next/font/google";
 import axios from "axios";
+import Link from "next/link";
 
 const newsreader = Newsreader({
   weight: "700",
@@ -187,7 +188,7 @@ export default function SignUp() {
             </div>
           </div>
           <h4 className={styles.categoryTitle}>
-            You already have an account? Click <a href="#">here</a>
+            You already have an account? Click <Link href="/login">here</Link>
           </h4>
           <button className={styles.signUpButton} onClick={handleSubmit}>
             Sign Up

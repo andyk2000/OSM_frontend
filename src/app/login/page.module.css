@@ -1,5 +1,7 @@
 .main {
-  background: white;
+  background-image: url("../../../public/image/Desktop\ -\ 4.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   color: black;
   width: 100%;
   height: 100vh;
@@ -12,6 +14,7 @@
   flex-direction: column;
   align-items: center;
   padding-top: 7rem;
+  background-color: #ffffff;
 }
 
 .emailField {
@@ -19,7 +22,7 @@
   border-width: 1px;
   border-color: #3e61ac;
   border-radius: 0.3rem;
-  margin-top: 7rem;
+  margin-top: 5.5rem;
 }
 
 .emailInput {
@@ -78,6 +81,16 @@
 }
 
 .rightSection {
-  background: url("../../../public/image/Desktop\ -\ 2.png");
   width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 7rem;
+  align-items: center;
+  color: white;
+}
+
+.rightSection p {
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 1.2rem;
 }
