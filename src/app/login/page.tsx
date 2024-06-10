@@ -73,6 +73,8 @@ export default function Login() {
       const res = await createPost(user);
       if (res.success && res.data) {
         setMessage("Login successful");
+        console.log(res.data.token);
+        localStorage.setItem("token", res.data.token);
         return;
       }
 
