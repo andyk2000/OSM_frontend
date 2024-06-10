@@ -23,11 +23,12 @@ interface Config {
 }
 
 const config: Config = {
-  backend: process.env.BACKEND_LINK || "localhost",
+  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "localhost",
 };
 
 const createPost = async (postData: User) => {
   console.log(postData);
+  console.log(config.backend);
   try {
     const response = await axios.post(config.backend, postData, {
       headers: {
@@ -190,7 +191,6 @@ export default function SignUp() {
             Sign Up
           </button>
           {message && <p className={styles.message}>{message}</p>}{" "}
-          {/* Display feedback message */}
         </div>
       </div>
     </main>

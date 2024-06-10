@@ -1,0 +1,83 @@
+.main {
+  background: white;
+  color: black;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.leftSection {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7rem;
+}
+
+.emailField {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3e61ac;
+  border-radius: 0.3rem;
+  margin-top: 7rem;
+}
+
+.emailInput {
+  color: rgb(31, 31, 31);
+  outline: none;
+  border-style: none;
+  background: transparent;
+  padding: 0.6rem;
+  width: 20rem;
+  font-size: 1rem;
+}
+
+.passwordField {
+  display: flex;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3e61ac;
+  border-radius: 0.3rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.passwordInput {
+  color: rgb(31, 31, 31);
+  outline: none;
+  border-style: none;
+  background: transparent;
+  padding: 0.6rem;
+  width: 18rem;
+  font-size: 1rem;
+}
+
+.eyeIcon {
+  padding-inline: 0.4rem;
+  cursor: pointer;
+}
+
+.signUpredirect {
+  margin-top: 0.5rem;
+}
+
+.signUpLink {
+  color: #f9977b;
+}
+
+.loginButton {
+  border-style: none;
+  background-color: #3e61ac;
+  padding-inline: 0.5rem;
+  padding-block: 0.75rem;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 2rem;
+  width: 20rem;
+}
+
+.rightSection {
+  background: url("../../../public/image/Desktop\ -\ 2.png");
+  width: 60%;
+}
