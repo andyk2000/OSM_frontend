@@ -3,13 +3,13 @@
 import { useState } from "react";
 import clsx from "clsx";
 import styles from "./page.module.css";
-// import { Newsreader } from "@next/font/google";
+import { Newsreader } from "@next/font/google";
 import axios from "axios";
 
-// const newsreader = Newsreader({
-//   weight: "700",
-//   subsets: ["latin"],
-// });
+const newsreader = Newsreader({
+  weight: "700",
+  subsets: ["latin"],
+});
 
 interface User {
   names: string;
@@ -29,8 +29,9 @@ const config: Config = {
 const createPost = async (postData: User) => {
   console.log(postData);
   console.log(config.backend);
+  const postLink = config.backend + "/user/signup";
   try {
-    const response = await axios.post(config.backend, postData, {
+    const response = await axios.post(postLink, postData, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -50,6 +51,7 @@ export default function SignUp() {
     password: "",
     role: "customer",
   });
+
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
@@ -94,7 +96,7 @@ export default function SignUp() {
     <main className={styles.main}>
       <div className={styles.leftSection}>
         <h1
-          // className={clsx(newsreader.className)}
+          className={clsx(newsreader.className)}
           style={{ fontSize: "2.1rem", fontWeight: "bolder", color: "white" }}
         >
           Come, Join Us
@@ -114,7 +116,7 @@ export default function SignUp() {
       </div>
       <div className={styles.rightSection}>
         <h1
-          // className={clsx(newsreader.className)}
+          className={clsx(newsreader.className)}
           style={{
             fontSize: "2.1rem",
             fontWeight: "bolder",
