@@ -9,12 +9,18 @@
 }
 
 .leftSection {
-  width: 40%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 7rem;
   background-color: #ffffff;
+}
+
+.leftContainer {
+  margin-inline: 10rem;
+  margin-bottom: 5rem;
+  width: fit-content;
 }
 
 .emailField {
@@ -81,16 +87,60 @@
 }
 
 .rightSection {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
   padding-top: 7rem;
   align-items: center;
   color: white;
 }
 
-.rightSection p {
+.rightContainer {
+  margin-inline: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.rightContainer p {
   text-align: center;
   margin-top: 4rem;
   font-size: 1.2rem;
+}
+
+@media (max-width: 480px) {
+  .main {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 100vh;
+  }
+
+  .rightContainer p {
+    display: none;
+  }
+
+  .leftSection {
+    padding-top: 2rem;
+  }
+
+  .rightSection {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+  }
+}
+
+@media (max-height: 480px) {
+  .main {
+    height: max-content;
+  }
+  .leftSection {
+    height: 100%;
+  }
 }

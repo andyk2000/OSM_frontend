@@ -1,5 +1,7 @@
+/* styles/page.module.css */
+
 .main {
-  background-image: url("../../../public/image/Desktop\ -\ 1.png");
+  background-image: url("/image/Desktop - 1.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -7,23 +9,24 @@
   height: 100vh;
   display: flex;
   color: black;
+  overflow-y: scroll;
+  justify-content: space-between;
 }
 
 .leftSection {
   background: transparent;
-  width: 50%;
-  margin-left: 6rem;
-  margin-right: 6rem;
+  margin-inline: 5rem;
   padding-top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 3rem;
 }
 
 .textContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 6rem;
+  margin-top: 3rem;
 }
 
 .text {
@@ -36,19 +39,23 @@
 
 .rightSection {
   background: #ffffff;
-  width: 50%;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  height: 100%;
   padding-block: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+.rightSectionContainer {
+  padding-inline: 5rem;
+}
+
 .fieldsContainer {
   display: flex;
   flex-direction: column;
   align-content: center;
   margin-top: 2.5rem;
+  padding-inline: 5rem;
 }
 
 .fieldContainer {
@@ -56,11 +63,14 @@
   border-width: 1px;
   border-color: #3e61ac;
   border-radius: 5px;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .input {
-  margin: 0.5rem;
+  padding: 0.5rem;
   outline: none;
   border-style: none;
   background: transparent;
@@ -117,5 +127,82 @@
   border-radius: 5px;
   font-size: 1.1rem;
   cursor: pointer;
-  margin-top: 1.5rem;
+}
+
+.message {
+  color: red;
+  margin-top: 1rem;
+}
+
+/* Media Queries for responsiveness */
+
+/* Cell Phones (up to 480px) */
+@media (max-width: 480px) {
+  .main {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .leftSection {
+    padding-top: 2rem;
+  }
+
+  .rightSection {
+    padding-top: 2rem;
+    padding-inline: 1rem;
+    align-items: stretch;
+  }
+
+  .rightSectionContainer {
+    padding-inline: 0rem;
+  }
+
+  .fieldsContainer {
+    padding-inline: 0rem;
+  }
+
+  .input {
+    width: 100%;
+  }
+
+  .textContainer {
+    display: none;
+  }
+
+  .heading {
+    border-style: none;
+    padding-bottom: 0rem;
+  }
+}
+
+/* Tablets (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .main {
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .leftSection,
+  .rightSection {
+    padding-top: 3rem;
+  }
+
+  .input {
+    width: 100%;
+  }
+}
+
+.heading {
+  font-size: 2.1rem;
+  font-weight: bolder;
+  text-align: center;
+  border-bottom-style: none;
+  border-bottom-color: white;
+  border-bottom-width: 1px;
+  color: white;
+}
+
+.rightHeading {
+  color: #3e61ac;
+  border-bottom-color: #3e61ac;
 }

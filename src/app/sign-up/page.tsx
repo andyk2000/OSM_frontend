@@ -24,12 +24,10 @@ interface Config {
 }
 
 const config: Config = {
-  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "localhost",
+  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "http://localhost:3000",
 };
 
 const createPost = async (postData: User) => {
-  console.log(postData);
-  console.log(config.backend);
   const postLink = config.backend + "/user/signup";
   try {
     const response = await axios.post(postLink, postData, {
@@ -40,8 +38,7 @@ const createPost = async (postData: User) => {
     return { success: true, data: response.data };
   } catch (error) {
     console.error("Error creating post:", error);
-    // throw error;
-    return { success: false, message: "something went wrong" };
+    return { success: false, message: "Something went wrong" };
   }
 };
 
@@ -79,9 +76,8 @@ export default function SignUp() {
 
     try {
       const res = await createPost(user);
-      // setMessage(data);
       if (res.success && res.data) {
-        setMessage("saved successful");
+        setMessage("Sign up successful");
         return;
       }
 
@@ -96,10 +92,7 @@ export default function SignUp() {
   return (
     <main className={styles.main}>
       <div className={styles.leftSection}>
-        <h1
-          className={clsx(newsreader.className)}
-          style={{ fontSize: "2.1rem", fontWeight: "bolder", color: "white" }}
-        >
+        <h1 className={clsx(newsreader.className, styles.heading)}>
           Come, Join Us
         </h1>
         <div className={styles.textContainer}>
@@ -116,84 +109,82 @@ export default function SignUp() {
         </div>
       </div>
       <div className={styles.rightSection}>
-        <h1
-          className={clsx(newsreader.className)}
-          style={{
-            fontSize: "2.1rem",
-            fontWeight: "bolder",
-            color: "#3E61AC",
-            paddingBottom: "2rem",
-            borderBottomStyle: "solid",
-            borderBottomWidth: "1px",
-          }}
-        >
-          Create Account
-        </h1>
-        <div className={styles.fieldsContainer}>
-          <div className={styles.fieldContainer}>
-            <input
-              className={styles.input}
-              placeholder="Names"
-              name="names"
-              value={user.names}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.fieldContainer}>
-            <input
-              className={styles.input}
-              placeholder="Email"
-              name="email"
-              value={user.email}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.fieldContainer}>
-            <input
-              className={styles.input}
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={user.password}
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.fieldContainer}>
-            <input
-              className={styles.input}
-              type="password"
-              placeholder="Confirm Password"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-            />
-          </div>
-          <h4 className={styles.categoryTitle}>Choose a category</h4>
-          <div className={styles.category}>
-            <div
-              className={clsx(styles.categoryContainer, {
-                [styles.categoryContainerActive]: user.role === "customer",
-              })}
-              onClick={() => handleRoleChange("customer")}
-            >
-              Customer
+        <div className={styles.rightSectionContainer}>
+          <h1
+            className={clsx(
+              newsreader.className,
+              styles.heading,
+              styles.rightHeading,
+            )}
+          >
+            Create Account
+          </h1>
+          <div className={styles.fieldsContainer}>
+            <div className={styles.fieldContainer}>
+              <input
+                className={styles.input}
+                placeholder="Names"
+                name="names"
+                value={user.names}
+                onChange={handleChange}
+              />
             </div>
-            <div
-              className={clsx(styles.categoryContainer, {
-                [styles.categoryContainerActive]: user.role === "owner",
-              })}
-              onClick={() => handleRoleChange("owner")}
-            >
-              Merchant
+            <div className={styles.fieldContainer}>
+              <input
+                className={styles.input}
+                placeholder="Email"
+                name="email"
+                value={user.email}
+                onChange={handleChange}
+              />
             </div>
+            <div className={styles.fieldContainer}>
+              <input
+                className={styles.input}
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={user.password}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.fieldContainer}>
+              <input
+                className={styles.input}
+                type="password"
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+              />
+            </div>
+            <h4 className={styles.categoryTitle}>Choose a category</h4>
+            <div className={styles.category}>
+              <div
+                className={clsx(styles.categoryContainer, {
+                  [styles.categoryContainerActive]: user.role === "customer",
+                })}
+                onClick={() => handleRoleChange("customer")}
+              >
+                Customer
+              </div>
+              <div
+                className={clsx(styles.categoryContainer, {
+                  [styles.categoryContainerActive]: user.role === "owner",
+                })}
+                onClick={() => handleRoleChange("owner")}
+              >
+                Merchant
+              </div>
+            </div>
+            <h4 className={styles.categoryTitle}>
+              Already have an account? Click <Link href="/login">here</Link>
+            </h4>
+            <button className={styles.signUpButton} onClick={handleSubmit}>
+              Sign Up
+            </button>
+            {message && <p className={styles.message}>{message}</p>}
           </div>
-          <h4 className={styles.categoryTitle}>
-            You already have an account? Click <Link href="/login">here</Link>
-          </h4>
-          <button className={styles.signUpButton} onClick={handleSubmit}>
-            Sign Up
-          </button>
-          {message && <p className={styles.message}>{message}</p>}{" "}
         </div>
       </div>
     </main>
