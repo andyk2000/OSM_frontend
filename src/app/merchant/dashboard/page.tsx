@@ -72,12 +72,62 @@ export default function Dashboard() {
           <div className={styles.tableBody}>
             <div className={styles.tabdeRow}>
               <div className={styles.dataLeftSection}>
-                <p className={styles.tableDataCell}>10, may</p>
-                <p className={styles.tableCustomerCell}>Andy</p>
+                <p className={styles.tableDataCell}>10, june</p>
+                <p className={styles.tableCustomerCell}>Tony Stark</p>
               </div>
               <div className={styles.dataLeftSection}>
                 <p className={styles.tableItemCell}>Vans</p>
-                <p className={styles.tableCell}>12000</p>
+                <p className={styles.tableCell}>12,000</p>
+              </div>
+            </div>
+            <div className={styles.tabdeRow}>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableDataCell}>10, june</p>
+                <p className={styles.tableCustomerCell}>Kelly</p>
+              </div>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableItemCell}>Peter Parker</p>
+                <p className={styles.tableCell}>27,000</p>
+              </div>
+            </div>
+            <div className={styles.tabdeRow}>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableDataCell}>8, june</p>
+                <p className={styles.tableCustomerCell}>Wanda Maximoff</p>
+              </div>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableItemCell}>all star</p>
+                <p className={styles.tableCell}>10,000</p>
+              </div>
+            </div>
+            <div className={styles.tabdeRow}>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableDataCell}>7, june</p>
+                <p className={styles.tableCustomerCell}>Steve Rogers</p>
+              </div>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableItemCell}>air force</p>
+                <p className={styles.tableCell}>19,000</p>
+              </div>
+            </div>
+            <div className={styles.tabdeRow}>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableDataCell}>10, june</p>
+                <p className={styles.tableCustomerCell}>Kelly</p>
+              </div>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableItemCell}>Peter Parker</p>
+                <p className={styles.tableCell}>27,000</p>
+              </div>
+            </div>
+            <div className={styles.tabdeRow}>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableDataCell}>8, june</p>
+                <p className={styles.tableCustomerCell}>Wanda Maximoff</p>
+              </div>
+              <div className={styles.dataLeftSection}>
+                <p className={styles.tableItemCell}>all star</p>
+                <p className={styles.tableCell}>10,000</p>
               </div>
             </div>
           </div>

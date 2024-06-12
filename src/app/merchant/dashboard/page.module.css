@@ -172,9 +172,12 @@
   flex-direction: row;
   justify-content: space-between;
   padding-block: 1rem;
-  font-size: 1rem;
+  font-size: .9rem;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.7);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0, 0, 0, 0.15);
 }
 
 .dataLeftSection {
