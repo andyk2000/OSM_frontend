@@ -1,0 +1,61 @@
+.pageContainer {
+  background: #fff;
+  color: #000;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.sideBar {
+  padding-inline: 4rem;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: rgba(62, 97, 172, 0.2);
+}
+
+.userNames {
+  padding-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.email {
+  font-size: 0.8rem;
+  color: #8a8a8a;
+}
+
+.tabsContainer {
+  height: 100%;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+}
+
+.tabContainer {
+  width: 8rem;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  cursor: pointer;
+  padding-block: 1rem;
+}
+
+.tabContainerActive {
+  color: #3e61ac;
+}
+
+.tabLabel {
+  font-size: 1.1rem;
+  padding-left: 2rem;
+}
+
+.children {
+  width: 100%;
+}
