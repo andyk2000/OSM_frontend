@@ -114,7 +114,7 @@
   color: #3e61ac;
 }
 
-.tableConatiner {
+.tableContainer {
   margin-top: 2.5rem;
 }
 
@@ -167,7 +167,7 @@
   width: 8rem;
 }
 
-.tabdeRow {
+.tableRow {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
