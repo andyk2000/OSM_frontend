@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import { Icon } from "@iconify/react";
 import { Suspense, useState, useEffect } from "react";
 import { CardSectionSkeleton } from "../skeleton/dashboard";
-import { getCardData } from "./action";
+import { getCardData, getTableData } from "./action";
 
 export default function Dashboard() {
   const [cardData, setCardData] = useState({
@@ -12,6 +12,14 @@ export default function Dashboard() {
     serviceCount: 0,
     totalPayment: 0,
   });
+  const [tableData, setTableData] = useState([
+    {
+      item_name: "",
+      amount: 0,
+      customer: "",
+      date: "",
+    },
+  ]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,9 +28,13 @@ export default function Dashboard() {
       const token = localStorage.getItem("token");
       if (typeof token === "string") {
         const result = await getCardData(token);
+        const tdata = await getTableData(token);
         console.log(result);
         if (result.success) {
           setCardData(result.data);
+        }
+        if (tdata.success) {
+          setTableData(tdata.data);
         }
       }
       setLoading(false);
@@ -104,66 +116,20 @@ export default function Dashboard() {
             </div>
           </div>
           <div className={styles.tableBody}>
-            <div className={styles.tableRow}>
-              <div className={styles.dataLeftSection}>
-                <p className={styles.tableDataCell}>10, June</p>
-                <p className={styles.tableCustomerCell}>Tony Stark</p>
+            {tableData.map((row, index) => (
+              <div key={index} className={styles.tableRow}>
+                <div className={styles.dataLeftSection}>
+                  <p className={styles.tableDataCell}>
+                    {row.date.substring(0, 10)}
+                  </p>
+                  <p className={styles.tableCustomerCell}>{row.customer}</p>
+                </div>
+                <div className={styles.dataRightSection}>
+                  <p className={styles.tableItemCell}>{row.item_name}</p>
+                  <p className={styles.tableCell}>{row.amount}</p>
+                </div>
               </div>
-              <div className={styles.dataRightSection}>
-                <p className={styles.tableItemCell}>Vans</p>
-                <p className={styles.tableCell}>12,000</p>
-              </div>
-            </div>
-            <div className={styles.tableRow}>
-              <div className={styles.dataLeftSection}>
-                <p className={styles.tableDataCell}>10, June</p>
-                <p className={styles.tableCustomerCell}>Kelly</p>
-              </div>
-              <div className={styles.dataRightSection}>
-                <p className={styles.tableItemCell}>Peter Parker</p>
-                <p className={styles.tableCell}>27,000</p>
-              </div>
-            </div>
-            <div className={styles.tableRow}>
-              <div className={styles.dataLeftSection}>
-                <p className={styles.tableDataCell}>8, June</p>
-                <p className={styles.tableCustomerCell}>Wanda Maximoff</p>
-              </div>
-              <div className={styles.dataRightSection}>
-                <p className={styles.tableItemCell}>All Star</p>
-                <p className={styles.tableCell}>10,000</p>
-              </div>
-            </div>
-            <div className={styles.tableRow}>
-              <div className={styles.dataLeftSection}>
-                <p className={styles.tableDataCell}>7, June</p>
-                <p className={styles.tableCustomerCell}>Steve Rogers</p>
-              </div>
-              <div className={styles.dataRightSection}>
-                <p className={styles.tableItemCell}>Air Force</p>
-                <p className={styles.tableCell}>19,000</p>
-              </div>
-            </div>
-            <div className={styles.tableRow}>
-              <div className={styles.dataLeftSection}>
-                <p className={styles.tableDataCell}>10, June</p>
-                <p className={styles.tableCustomerCell}>Kelly</p>
-              </div>
-              <div className={styles.dataRightSection}>
-                <p className={styles.tableItemCell}>Peter Parker</p>
-                <p className={styles.tableCell}>27,000</p>
-              </div>
-            </div>
-            <div className={styles.tableRow}>
-              <div className={styles.dataLeftSection}>
-                <p className={styles.tableDataCell}>8, June</p>
-                <p className={styles.tableCustomerCell}>Wanda Maximoff</p>
-              </div>
-              <div className={styles.dataRightSection}>
-                <p className={styles.tableItemCell}>All Star</p>
-                <p className={styles.tableCell}>10,000</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

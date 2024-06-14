@@ -28,4 +28,22 @@ const getCardData = async (token: string) => {
   }
 };
 
-export { getCardData };
+const getTableData = async (token: string) => {
+  const postLink = `${config.backend}/payment/merchant/payments`;
+  try {
+    const response = await axios.get(postLink, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+    console.log(response.data);
+    noStore();
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return { success: false, message: "Something went wrong", data: null };
+  }
+};
+
+export { getCardData, getTableData };
