@@ -75,4 +75,28 @@ const getPrimaryTableData = async (store_id: number, token: string) => {
   }
 };
 
-export { getStores, getCardData, getPrimaryTableData };
+const getStats = async (store_id: number, token: string) => {
+  const postLink = `${config.backend}/payment/stats`;
+  try {
+    const response = await axios.post(
+      postLink,
+      {
+        store_id: store_id,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      },
+    );
+    console.log(response.data);
+    noStore();
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return { success: false, message: "something went wrong", data: null };
+  }
+};
+
+export { getStores, getCardData, getPrimaryTableData, getStats };

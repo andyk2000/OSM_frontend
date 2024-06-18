@@ -3,7 +3,12 @@
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { Icon } from "@iconify/react";
-import { getStores, getCardData, getPrimaryTableData } from "./action";
+import {
+  getStores,
+  getCardData,
+  getPrimaryTableData,
+  getStats,
+} from "./action";
 
 interface Store {
   id: number;
@@ -29,6 +34,21 @@ export default function Store() {
     availableServices: 0,
     serviceSold: 0,
   });
+
+  const [bestUser, setBestUser] = useState([
+    {
+      id: 0,
+      name: "",
+      recurrence: 0,
+    },
+  ]);
+
+  const [bestProduct, setBestProduct] = useState([
+    {
+      name: "",
+      recurrence: 0,
+    },
+  ]);
 
   const [tableRecords, setTableRecords] = useState([
     {
@@ -65,8 +85,12 @@ export default function Store() {
         try {
           const data = await getCardData(activeStore.id, token);
           const tableData = await getPrimaryTableData(activeStore.id, token);
+          const stats = await getStats(activeStore.id, token);
+          console.log(stats);
           setCardData(data.data);
           setTableRecords(tableData.data);
+          setBestUser(stats.data.users);
+          setBestProduct(stats.data.services);
         } catch (error) {
           console.error("Error fetching card data:", error);
         }
@@ -208,6 +232,15 @@ export default function Store() {
             width={20}
           />
         </div>
+        <div className={styles.filter}>
+          <p>Filter</p>
+          <Icon
+            icon="ph:sliders-horizontal"
+            style={{ color: "rgba(0,0,0,0.4)" }}
+            height={30}
+            width={30}
+          />
+        </div>
         <button className={styles.newService}>
           <Icon
             icon="ph:plus-bold"
@@ -262,18 +295,12 @@ export default function Store() {
                 width={20}
               />
             </div>
-            <div className={styles.sideTableRow}>
-              <p className={styles.rowName}>Jordans</p>
-              <p className={styles.rowValue}>28,000</p>
-            </div>
-            <div className={styles.sideTableRow}>
-              <p className={styles.rowName}>Jordans</p>
-              <p className={styles.rowValue}>28,000</p>
-            </div>
-            <div className={styles.sideTableRow}>
-              <p className={styles.rowName}>Jordans</p>
-              <p className={styles.rowValue}>28,000</p>
-            </div>
+            {bestProduct.map((service, index) => (
+              <div key={index} className={styles.sideTableRow}>
+                <p className={styles.rowName}>{service.name}</p>
+                <p className={styles.rowValue}>{service.recurrence}</p>
+              </div>
+            ))}
           </div>
           <div className={styles.table}>
             <div className={styles.sideTableHead}>
@@ -285,18 +312,12 @@ export default function Store() {
                 width={20}
               />
             </div>
-            <div className={styles.sideTableRow}>
-              <p className={styles.rowName}>Andy</p>
-              <p className={styles.rowValue}>6</p>
-            </div>
-            <div className={styles.sideTableRow}>
-              <p className={styles.rowName}>Shaphan</p>
-              <p className={styles.rowValue}>2</p>
-            </div>
-            <div className={styles.sideTableRow}>
-              <p className={styles.rowName}>Gratien</p>
-              <p className={styles.rowValue}>1</p>
-            </div>
+            {bestUser.map((customer, index) => (
+              <div key={index} className={styles.sideTableRow}>
+                <p className={styles.rowName}>{customer.name}</p>
+                <p className={styles.rowValue}>{customer.recurrence}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
