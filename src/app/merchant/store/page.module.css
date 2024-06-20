@@ -101,7 +101,13 @@
   height: 7.5rem;
   justify-content: space-between;
   box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.2);
+  /* transition: height 100ms ease-in-out; */
 }
+
+/* .mainCard:hover {
+  height: 250px;
+  background: white;
+} */
 
 .mainCardFirstLine {
   width: 15rem;
@@ -191,6 +197,24 @@
   margin-top: 1.5rem;
 }
 
+.searchFilter {
+  display: flex;
+}
+
+.category {
+  overflow-x: hidden;
+  padding-inline: 0.4rem;
+  padding-block: 0.6rem;
+  outline: none;
+  color: black;
+  background: transparent;
+  border-style: none;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: rgba(0, 0, 0, 0.4);
+  font-size: 1rem;
+}
+
 .searchBar {
   display: flex;
   align-items: center;
@@ -226,10 +250,11 @@
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
+  margin-left: 2rem;
 }
 
 .filter p {
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
 
 .newService {
@@ -255,6 +280,10 @@
   width: 100%;
 }
 
+.primaryTable {
+  width: 100%;
+}
+
 .table {
   padding: 1rem;
   border-style: solid;
@@ -265,7 +294,6 @@
 }
 
 .tableHead {
-  width: 70%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

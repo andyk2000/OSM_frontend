@@ -37,7 +37,6 @@ const getTableData = async (token: string) => {
         Authorization: token,
       },
     });
-    console.log(response.data);
     noStore();
     return { success: true, data: response.data };
   } catch (error) {

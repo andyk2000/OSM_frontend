@@ -90,7 +90,6 @@ const getStats = async (store_id: number, token: string) => {
         },
       },
     );
-    console.log(response.data);
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
@@ -99,4 +98,34 @@ const getStats = async (store_id: number, token: string) => {
   }
 };
 
-export { getStores, getCardData, getPrimaryTableData, getStats };
+const searchData = async (
+  store_id: number,
+  token: string,
+  search_string: string,
+  activeCategory: string,
+) => {
+  const searchLink = `${config.backend}/payment/search`;
+  try {
+    const response = await axios.post(
+      searchLink,
+      {
+        store_id: store_id,
+        search_string: search_string,
+        category: activeCategory,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      },
+    );
+    noStore();
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return { success: false, message: "something went wrong", data: null };
+  }
+};
+
+export { getStores, getCardData, getPrimaryTableData, getStats, searchData };

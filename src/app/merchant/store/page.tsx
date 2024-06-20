@@ -8,6 +8,7 @@ import {
   getCardData,
   getPrimaryTableData,
   getStats,
+  searchData,
 } from "./action";
 
 interface Store {
@@ -59,6 +60,8 @@ export default function Store() {
     },
   ]);
 
+  const [searchResult, setSearchResult] = useState([]);
+  const [search, setSearch] = useState("");
   useEffect(() => {
     const fetchStores = async () => {
       const token = localStorage.getItem("token");
@@ -105,6 +108,46 @@ export default function Store() {
     const selectedStore =
       stores.find((store) => store.id === selectedStoreId) || null;
     setActiveStore(selectedStore);
+  };
+
+  const [activeCategory, setActiveCategory] = useState("customer");
+  const handleCategoryChange = (e: { target: { value: any } }) => {
+    setActiveCategory(e.target.value);
+  };
+
+  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
+    null,
+  );
+
+  const handleChange = async (e: { target: { value: string } }) => {
+    const token = localStorage.getItem("token");
+    const newValue = e.target.value;
+    if (newValue === "" && activeStore && token) {
+      const tableData = await getPrimaryTableData(activeStore.id, token);
+      setTableRecords(tableData.data);
+    } else {
+      setSearch(newValue);
+
+      if (debounceTimeout) {
+        clearTimeout(debounceTimeout);
+      }
+
+      const timeout = setTimeout(async () => {
+        console.log("Search value:", newValue);
+        if (activeStore && token) {
+          const s_result = await searchData(
+            activeStore.id,
+            token,
+            newValue,
+            activeCategory,
+          );
+          setSearchResult(s_result.data);
+          setTableRecords(s_result.data);
+        }
+      }, 600);
+
+      setDebounceTimeout(timeout);
+    }
   };
 
   return (
@@ -218,28 +261,40 @@ export default function Store() {
         </div>
       </div>
       <div className={styles.serviceNav}>
-        <div className={styles.searchBar}>
-          <input
-            type="text"
-            name="search"
-            placeholder="Search"
-            className={styles.searchInput}
-          />
-          <Icon
-            icon="ph:magnifying-glass-bold"
-            style={{ color: "rgba(0,0,0,0.4)" }}
-            height={20}
-            width={20}
-          />
-        </div>
-        <div className={styles.filter}>
-          <p>Filter</p>
-          <Icon
-            icon="ph:sliders-horizontal"
-            style={{ color: "rgba(0,0,0,0.4)" }}
-            height={30}
-            width={30}
-          />
+        <div className={styles.searchFilter}>
+          <div className={styles.searchBar}>
+            <select className={styles.category} onChange={handleCategoryChange}>
+              <option className={styles.storeNames} value="customer">
+                Customer
+              </option>
+              <option className={styles.storeNames} value="item">
+                Item
+              </option>
+            </select>
+            <input
+              type="text"
+              name="search"
+              placeholder="Search"
+              className={styles.searchInput}
+              value={search}
+              onChange={handleChange}
+            />
+            <Icon
+              icon="ph:magnifying-glass-bold"
+              style={{ color: "rgba(0,0,0,0.4)" }}
+              height={20}
+              width={20}
+            />
+          </div>
+          <div className={styles.filter}>
+            <p>Filter</p>
+            <Icon
+              icon="ph:sliders-horizontal"
+              style={{ color: "rgba(0,0,0,0.4)" }}
+              height={30}
+              width={30}
+            />
+          </div>
         </div>
         <button className={styles.newService}>
           <Icon
@@ -251,6 +306,7 @@ export default function Store() {
           <p>New Service</p>
         </button>
       </div>
+      <div className={styles.filter}></div>
       <div className={styles.tableSection}>
         <div className={styles.primaryTable}>
           <div className={styles.table}>
