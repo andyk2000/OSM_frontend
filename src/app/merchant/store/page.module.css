@@ -44,6 +44,8 @@
   font-size: 0.75rem;
   border-radius: 0.5rem;
   cursor: pointer;
+  border-style: none;
+  outline: none;
 }
 
 .newStoreButtonText {
@@ -73,6 +75,10 @@
 .storeURLSection {
   display: flex;
   align-items: center;
+}
+
+.viewStore {
+  cursor: pointer;
 }
 
 .viewSection p {
@@ -267,11 +273,72 @@
   color: white;
   border-style: none;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .newService p {
   font-size: 1rem;
   margin-left: 0.5rem;
+}
+
+.fitlerContainer {
+  display: none;
+}
+
+.fitlerContainerActive {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.filterField {
+  width: 100%;
+  display: flex;
+}
+
+.datePicker {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+}
+
+.endDatePicker {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+  margin-left: 2rem;
+}
+
+.filterButtonSection {
+  display: flex;
+  flex-direction: raw;
+  justify-content: right;
+  align-items: center;
+  height: fit-content;
+  width: fit-content;
+  margin-top: 0.5rem;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  background: #3e61ac;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border-style: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .tableSection {

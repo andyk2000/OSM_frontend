@@ -9,7 +9,13 @@ import {
   getPrimaryTableData,
   getStats,
   searchData,
+  filterData,
+  redirectToLogin,
 } from "./action";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import clsx from "clsx";
+import { format } from "date-fns";
 
 interface Store {
   id: number;
@@ -60,8 +66,11 @@ export default function Store() {
     },
   ]);
 
-  const [searchResult, setSearchResult] = useState([]);
+  const [, setSearchResult] = useState([]);
   const [search, setSearch] = useState("");
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [filterOn, setFilterOn] = useState(false);
   useEffect(() => {
     const fetchStores = async () => {
       const token = localStorage.getItem("token");
@@ -103,6 +112,13 @@ export default function Store() {
     fetchCardData();
   }, [activeStore]);
 
+  useEffect(() => {
+    if (!stores) {
+      localStorage.removeItem("token");
+      redirectToLogin();
+    }
+  }, [activeStore, stores, tableRecords]);
+
   const handleStoreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedStoreId = parseInt(event.target.value, 10);
     const selectedStore =
@@ -111,6 +127,7 @@ export default function Store() {
   };
 
   const [activeCategory, setActiveCategory] = useState("customer");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleCategoryChange = (e: { target: { value: any } }) => {
     setActiveCategory(e.target.value);
   };
@@ -125,6 +142,7 @@ export default function Store() {
     if (newValue === "" && activeStore && token) {
       const tableData = await getPrimaryTableData(activeStore.id, token);
       setTableRecords(tableData.data);
+      setSearch(newValue);
     } else {
       setSearch(newValue);
 
@@ -150,6 +168,43 @@ export default function Store() {
     }
   };
 
+  const handleFilterVisibility = () => {
+    setFilterOn(!filterOn);
+    console.log(filterOn);
+  };
+
+  const submitFilter = async () => {
+    console.log(startDate, endDate);
+    const token = localStorage.getItem("token");
+
+    if (!activeStore || !token) {
+      console.error("Active store or token is missing");
+      return;
+    }
+
+    try {
+      let tableData;
+      if (startDate && endDate) {
+        const start = format(startDate, "yyyy-MM-dd");
+        const end = format(endDate, "yyyy-MM-dd");
+        tableData = await filterData(activeStore.id, token, start, end);
+      } else if (!startDate && endDate) {
+        const end = format(endDate, "yyyy-MM-dd");
+        tableData = await filterData(activeStore.id, token, undefined, end);
+      } else if (startDate && !endDate) {
+        const start = format(startDate, "yyyy-MM-dd");
+        tableData = await filterData(activeStore.id, token, start);
+      } else {
+        console.warn("Neither startDate nor endDate is provided");
+        return;
+      }
+
+      setTableRecords(tableData.data);
+    } catch (error) {
+      console.error("Error fetching filtered data:", error);
+    }
+  };
+
   return (
     <div className={styles.pageContainer}>
       <div className={styles.header}>
@@ -167,15 +222,15 @@ export default function Store() {
           </select>
         </div>
         <div className={styles.headerRightSection}>
-          <div className={styles.newStoreButton}>
+          <button className={styles.newStoreButton}>
             <Icon
               icon="ph:plus"
               style={{ color: "white" }}
               width={20}
               height={20}
             />
-            <h4 className={styles.newStoreButtonText}>New Store</h4>
-          </div>
+            New Store
+          </button>
         </div>
       </div>
       <div className={styles.subHeader}>
@@ -273,7 +328,6 @@ export default function Store() {
             </select>
             <input
               type="text"
-              name="search"
               placeholder="Search"
               className={styles.searchInput}
               value={search}
@@ -286,8 +340,7 @@ export default function Store() {
               width={20}
             />
           </div>
-          <div className={styles.filter}>
-            <p>Filter</p>
+          <div className={styles.filter} onClick={handleFilterVisibility}>
             <Icon
               icon="ph:sliders-horizontal"
               style={{ color: "rgba(0,0,0,0.4)" }}
@@ -306,6 +359,42 @@ export default function Store() {
           <p>New Service</p>
         </button>
       </div>
+      <div
+        className={clsx(styles.fitlerContainer, {
+          [styles.fitlerContainerActive]: filterOn,
+        })}
+      >
+        <div className={styles.filterField}>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            dateFormat="yyyy/MM/dd"
+            className={styles.datePicker}
+            isClearable
+            placeholderText="Start Date"
+          />
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            dateFormat="yyyy/MM/dd"
+            className={styles.endDatePicker}
+            isClearable
+            placeholderText="End Date"
+          />
+        </div>
+        <div className={styles.filterButtonSection}>
+          <button className={styles.filterButton} onClick={submitFilter}>
+            <p>Apply Filter</p>
+            <Icon
+              icon="ph:funnel"
+              style={{ color: "white" }}
+              height={20}
+              width={20}
+            />
+          </button>
+        </div>
+      </div>
+      <div className={styles.filterContainer}></div>
       <div className={styles.filter}></div>
       <div className={styles.tableSection}>
         <div className={styles.primaryTable}>
