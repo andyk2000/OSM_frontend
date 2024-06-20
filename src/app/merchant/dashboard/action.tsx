@@ -1,22 +1,12 @@
 "use server";
 
-import axios from "axios";
+import { axiosConfig } from "@/api.config/axios.config";
 import { unstable_noStore as noStore } from "next/cache";
 
-interface Config {
-  backend: string;
-}
-
-const config: Config = {
-  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "http://localhost:3001",
-};
-
 const getCardData = async (token: string) => {
-  const postLink = `${config.backend}/payment/totalPayment`;
   try {
-    const response = await axios.get(postLink, {
+    const response = await axiosConfig.get("/payment/totalPayment", {
       headers: {
-        "Content-Type": "application/json",
         Authorization: token,
       },
     });
@@ -29,11 +19,9 @@ const getCardData = async (token: string) => {
 };
 
 const getTableData = async (token: string) => {
-  const postLink = `${config.backend}/payment/merchant/payments`;
   try {
-    const response = await axios.get(postLink, {
+    const response = await axiosConfig.get("/payment/merchant/payments", {
       headers: {
-        "Content-Type": "application/json",
         Authorization: token,
       },
     });

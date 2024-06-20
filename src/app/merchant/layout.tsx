@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosConfig } from "@/api.config/axios.config";
 
 const pagePaths = {
   dashboard: "/merchant/dashboard",
@@ -15,20 +15,10 @@ const pagePaths = {
   login: "/login",
 };
 
-interface Config {
-  backend: string;
-}
-
-const config: Config = {
-  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "http://localhost:3001",
-};
-
 const getMerchantData = async () => {
-  const postLink = `${config.backend}/user/getUserData/merchant`;
   try {
-    const response = await axios.get(postLink, {
+    const response = await axiosConfig.get("/user/getUserData/merchant", {
       headers: {
-        "Content-Type": "application/json",
         Authorization: localStorage.getItem("token"),
       },
     });
@@ -51,7 +41,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       if (result.success && result.data) {
         setEmail(result.data.email);
         setNames(result.data.names);
-        console.log(result.data);
       }
     };
 

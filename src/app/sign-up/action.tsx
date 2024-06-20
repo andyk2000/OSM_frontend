@@ -1,6 +1,5 @@
 "use server";
-
-import axios from "axios";
+import { axiosConfig } from "@/api.config/axios.config";
 
 // eslint-disable-next-line react-hooks/rules-of-hooks
 let message = "";
@@ -16,22 +15,9 @@ interface User {
   role: string;
 }
 
-interface Config {
-  backend: string;
-}
-
-const config: Config = {
-  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "http://localhost:3000",
-};
-
 const createPost = async (postData: User) => {
-  const postLink = config.backend + "/user/signup";
   try {
-    const response = await axios.post(postLink, postData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axiosConfig.post("/user/signup", postData);
     return { success: true, data: response.data };
   } catch (error) {
     console.error("Error creating post:", error);

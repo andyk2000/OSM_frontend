@@ -51,7 +51,6 @@ export default function Login() {
       setMessage(answer.message);
       if (typeof answer.token === "string") {
         localStorage.setItem("token", answer.token);
-        console.log(message);
         pageRedirect();
       }
     }

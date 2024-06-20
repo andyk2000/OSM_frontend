@@ -1,6 +1,6 @@
 "use server";
 
-import axios from "axios";
+import { axiosConfig } from "@/api.config/axios.config";
 import { redirect } from "next/navigation";
 
 interface User {
@@ -8,28 +8,14 @@ interface User {
   password: string;
 }
 
-interface Config {
-  backend: string;
-}
-
 interface Message {
   message: string;
   token?: string;
 }
 
-const config: Config = {
-  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "http://localhost:3000",
-};
-
 const createPost = async (postData: User) => {
-  const postLink = `${config.backend}/user/login`;
-  console.log(`POST request to: ${postLink}`);
   try {
-    const response = await axios.post(postLink, postData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axiosConfig.post("/user/login", postData);
     return { success: true, data: response.data };
   } catch (error) {
     console.error("Error creating post:", error);
@@ -38,11 +24,9 @@ const createPost = async (postData: User) => {
 };
 
 const handleSubmit = async (user: User): Promise<Message> => {
-  console.log("Handling submit for user:", user);
   const message: Message = { message: "" };
   try {
     const res = await createPost(user);
-    console.log("Response from createPost:", res);
     if (res.success) {
       message.message = "Login successful";
       message.token = res.data.token;

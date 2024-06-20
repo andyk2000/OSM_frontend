@@ -1,23 +1,13 @@
 "use server";
 
-import axios from "axios";
+import { axiosConfig } from "@/api.config/axios.config";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 
-interface Config {
-  backend: string;
-}
-
-const config: Config = {
-  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "http://localhost:3001",
-};
-
 const getStores = async (token: string) => {
-  const postLink = `${config.backend}/store/`;
   try {
-    const response = await axios.get(postLink, {
+    const response = await axiosConfig.get("/store/", {
       headers: {
-        "Content-Type": "application/json",
         Authorization: token,
       },
     });
@@ -30,16 +20,14 @@ const getStores = async (token: string) => {
 };
 
 const getCardData = async (store_id: number, token: string) => {
-  const postLink = `${config.backend}/store/card/data`;
   try {
-    const response = await axios.post(
-      postLink,
+    const response = await axiosConfig.post(
+      "/store/card/data",
       {
         store_id: store_id,
       },
       {
         headers: {
-          "Content-Type": "application/json",
           Authorization: token,
         },
       },
@@ -53,16 +41,14 @@ const getCardData = async (store_id: number, token: string) => {
 };
 
 const getPrimaryTableData = async (store_id: number, token: string) => {
-  const postLink = `${config.backend}/payment/service-sold`;
   try {
-    const response = await axios.post(
-      postLink,
+    const response = await axiosConfig.post(
+      "/payment/service-sold",
       {
         store_id: store_id,
       },
       {
         headers: {
-          "Content-Type": "application/json",
           Authorization: token,
         },
       },
@@ -76,10 +62,9 @@ const getPrimaryTableData = async (store_id: number, token: string) => {
 };
 
 const getStats = async (store_id: number, token: string) => {
-  const postLink = `${config.backend}/payment/stats`;
   try {
-    const response = await axios.post(
-      postLink,
+    const response = await axiosConfig.post(
+      "/payment/stats",
       {
         store_id: store_id,
       },
@@ -104,10 +89,9 @@ const searchData = async (
   search_string: string,
   activeCategory: string,
 ) => {
-  const searchLink = `${config.backend}/payment/search`;
   try {
-    const response = await axios.post(
-      searchLink,
+    const response = await axiosConfig.post(
+      "/payment/search",
       {
         store_id: store_id,
         search_string: search_string.toLowerCase(),
@@ -115,7 +99,6 @@ const searchData = async (
       },
       {
         headers: {
-          "Content-Type": "application/json",
           Authorization: token,
         },
       },
@@ -134,10 +117,9 @@ const filterData = async (
   start_date?: string,
   end_date?: string,
 ) => {
-  const searchLink = `${config.backend}/payment/filter/date`;
   try {
-    const response = await axios.post(
-      searchLink,
+    const response = await axiosConfig.post(
+      "/payment/filter/date",
       {
         store_id: store_id,
         end_date: end_date,
@@ -145,7 +127,6 @@ const filterData = async (
       },
       {
         headers: {
-          "Content-Type": "application/json",
           Authorization: token,
         },
       },

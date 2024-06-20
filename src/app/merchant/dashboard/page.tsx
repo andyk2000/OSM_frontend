@@ -29,7 +29,6 @@ export default function Dashboard() {
       if (typeof token === "string") {
         const result = await getCardData(token);
         const tdata = await getTableData(token);
-        console.log(result);
         if (result.success) {
           setCardData(result.data);
         }

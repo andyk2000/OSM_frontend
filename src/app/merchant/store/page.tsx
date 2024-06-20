@@ -98,7 +98,6 @@ export default function Store() {
           const data = await getCardData(activeStore.id, token);
           const tableData = await getPrimaryTableData(activeStore.id, token);
           const stats = await getStats(activeStore.id, token);
-          console.log(stats);
           setCardData(data.data);
           setTableRecords(tableData.data);
           setBestUser(stats.data.users);
@@ -151,7 +150,6 @@ export default function Store() {
       }
 
       const timeout = setTimeout(async () => {
-        console.log("Search value:", newValue);
         if (activeStore && token) {
           const s_result = await searchData(
             activeStore.id,
@@ -170,11 +168,9 @@ export default function Store() {
 
   const handleFilterVisibility = () => {
     setFilterOn(!filterOn);
-    console.log(filterOn);
   };
 
   const submitFilter = async () => {
-    console.log(startDate, endDate);
     const token = localStorage.getItem("token");
 
     if (!activeStore || !token) {
