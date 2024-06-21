@@ -16,8 +16,11 @@ export default function Dashboard() {
     {
       item_name: "",
       amount: 0,
-      customer: "",
       date: "",
+      user: {
+        names: "",
+        email: "",
+      },
     },
   ]);
   const [loading, setLoading] = useState(true);
@@ -121,7 +124,7 @@ export default function Dashboard() {
                   <p className={styles.tableDataCell}>
                     {row.date.substring(0, 10)}
                   </p>
-                  <p className={styles.tableCustomerCell}>{row.customer}</p>
+                  <p className={styles.tableCustomerCell}>{row.user.names}</p>
                 </div>
                 <div className={styles.dataRightSection}>
                   <p className={styles.tableItemCell}>{row.item_name}</p>

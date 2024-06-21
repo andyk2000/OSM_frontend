@@ -19,12 +19,12 @@ const getStores = async (token: string) => {
   }
 };
 
-const getCardData = async (store_id: number, token: string) => {
+const getCardData = async (storeId: number, token: string) => {
   try {
     const response = await axiosConfig.post(
       "/store/card/data",
       {
-        store_id: store_id,
+        storeId: storeId,
       },
       {
         headers: {
@@ -40,12 +40,12 @@ const getCardData = async (store_id: number, token: string) => {
   }
 };
 
-const getPrimaryTableData = async (store_id: number, token: string) => {
+const getPrimaryTableData = async (storeId: number, token: string) => {
   try {
     const response = await axiosConfig.post(
       "/payment/service-sold",
       {
-        store_id: store_id,
+        storeId: storeId,
       },
       {
         headers: {
@@ -61,12 +61,12 @@ const getPrimaryTableData = async (store_id: number, token: string) => {
   }
 };
 
-const getStats = async (store_id: number, token: string) => {
+const getStats = async (storeId: number, token: string) => {
   try {
     const response = await axiosConfig.post(
       "/payment/stats",
       {
-        store_id: store_id,
+        storeId: storeId,
       },
       {
         headers: {
@@ -84,7 +84,7 @@ const getStats = async (store_id: number, token: string) => {
 };
 
 const searchData = async (
-  store_id: number,
+  storeId: number,
   token: string,
   search_string: string,
   activeCategory: string,
@@ -93,7 +93,7 @@ const searchData = async (
     const response = await axiosConfig.post(
       "/payment/search",
       {
-        store_id: store_id,
+        storeId: storeId,
         search_string: search_string.toLowerCase(),
         category: activeCategory,
       },
@@ -112,7 +112,7 @@ const searchData = async (
 };
 
 const filterData = async (
-  store_id: number,
+  storeId: number,
   token: string,
   start_date?: string,
   end_date?: string,
@@ -121,7 +121,7 @@ const filterData = async (
     const response = await axiosConfig.post(
       "/payment/filter/date",
       {
-        store_id: store_id,
+        storeId: storeId,
         end_date: end_date,
         start_date: start_date,
       },

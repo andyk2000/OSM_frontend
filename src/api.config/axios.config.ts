@@ -20,12 +20,9 @@ axiosConfig.interceptors.request.use(
     return config;
   },
   (error) => {
-    // Handle the request error here
     return Promise.reject(error);
   },
 );
-
-// Response Interceptor
 axiosConfig.interceptors.response.use(
   (response) => {
     return response;

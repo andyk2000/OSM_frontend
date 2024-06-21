@@ -38,7 +38,7 @@ export default function Store() {
   const [activeStore, setActiveStore] = useState<Store | null>(null);
   const [cardData, setCardData] = useState({
     revenue: 0,
-    availableServices: 0,
+    services: 0,
     serviceSold: 0,
   });
 
@@ -59,10 +59,15 @@ export default function Store() {
 
   const [tableRecords, setTableRecords] = useState([
     {
+      id: 0,
       item_name: "",
       amount: 0,
-      customer: "",
+      userId: 0,
       date: "",
+      user: {
+        names: "",
+        email: "",
+      },
     },
   ]);
 
@@ -292,7 +297,7 @@ export default function Store() {
             <h4 className={styles.cardtitle}>All Services</h4>
           </div>
           <div className={styles.cardLastLine}>
-            <h3 className={styles.cardValue}>{cardData.availableServices}</h3>
+            <h3 className={styles.cardValue}>{cardData.services}</h3>
           </div>
         </div>
         <div className={styles.card}>
@@ -413,7 +418,7 @@ export default function Store() {
                       {record.date.substring(0, 10)}
                     </p>
                     <p className={styles.tableCustomerCell}>
-                      {record.customer}
+                      {record.user.names}
                     </p>
                   </div>
                   <div className={styles.dataRightSection}>
