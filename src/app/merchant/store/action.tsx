@@ -70,7 +70,6 @@ const getStats = async (storeId: number, token: string) => {
       },
       {
         headers: {
-          "Content-Type": "application/json",
           Authorization: token,
         },
       },
