@@ -1,16 +1,13 @@
 "use server";
 
-import { axiosConfig } from "@/api.config/axios.config";
+import { axiosConfig, getToken } from "@/api.config/axios.config";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 
 const getStores = async (token: string) => {
+  getToken(token);
   try {
-    const response = await axiosConfig.get("/store/", {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const response = await axiosConfig.get("/store/");
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
@@ -21,17 +18,10 @@ const getStores = async (token: string) => {
 
 const getCardData = async (storeId: number, token: string) => {
   try {
-    const response = await axiosConfig.post(
-      "/store/card/data",
-      {
-        storeId: storeId,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
-      },
-    );
+    getToken(token);
+    const response = await axiosConfig.post("/store/card/data", {
+      storeId: storeId,
+    });
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
@@ -42,17 +32,10 @@ const getCardData = async (storeId: number, token: string) => {
 
 const getPrimaryTableData = async (storeId: number, token: string) => {
   try {
-    const response = await axiosConfig.post(
-      "/payment/service-sold",
-      {
-        storeId: storeId,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
-      },
-    );
+    getToken(token);
+    const response = await axiosConfig.post("/payment/service-sold", {
+      storeId: storeId,
+    });
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
@@ -62,18 +45,11 @@ const getPrimaryTableData = async (storeId: number, token: string) => {
 };
 
 const getStats = async (storeId: number, token: string) => {
+  getToken(token);
   try {
-    const response = await axiosConfig.post(
-      "/payment/stats",
-      {
-        storeId: storeId,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
-      },
-    );
+    const response = await axiosConfig.post("/payment/stats", {
+      storeId: storeId,
+    });
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
@@ -88,20 +64,13 @@ const searchData = async (
   search_string: string,
   activeCategory: string,
 ) => {
+  getToken(token);
   try {
-    const response = await axiosConfig.post(
-      "/payment/search",
-      {
-        storeId: storeId,
-        search_string: search_string.toLowerCase(),
-        category: activeCategory,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
-      },
-    );
+    const response = await axiosConfig.post("/payment/search", {
+      storeId: storeId,
+      search_string: search_string.toLowerCase(),
+      category: activeCategory,
+    });
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
@@ -116,20 +85,13 @@ const filterData = async (
   start_date?: string,
   end_date?: string,
 ) => {
+  getToken(token);
   try {
-    const response = await axiosConfig.post(
-      "/payment/filter/date",
-      {
-        storeId: storeId,
-        end_date: end_date,
-        start_date: start_date,
-      },
-      {
-        headers: {
-          Authorization: token,
-        },
-      },
-    );
+    const response = await axiosConfig.post("/payment/filter/date", {
+      storeId: storeId,
+      end_date: end_date,
+      start_date: start_date,
+    });
     noStore();
     return { success: true, data: response.data };
   } catch (error) {

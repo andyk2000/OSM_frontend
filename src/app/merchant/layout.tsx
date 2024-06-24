@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
-import { axiosConfig } from "@/api.config/axios.config";
+import { axiosConfig, getToken } from "@/api.config/axios.config";
 
 const pagePaths = {
   dashboard: "/merchant/dashboard",
@@ -17,6 +17,10 @@ const pagePaths = {
 
 const getMerchantData = async () => {
   try {
+    const token = localStorage.getItem("token");
+    if (token) {
+      getToken(token);
+    }
     const response = await axiosConfig.get("/user/getUserData/merchant", {
       headers: {
         Authorization: localStorage.getItem("token"),
@@ -49,6 +53,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   const handleClick = (path: string) => {
+    localStorage.removeItem("Authorization");
     setCurrentPath(path);
   };
 
