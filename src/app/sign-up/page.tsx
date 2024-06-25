@@ -3,7 +3,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import styles from "./page.module.css";
-import { Newsreader } from "@next/font/google";
+import { Newsreader } from "next/font/google";
 import Link from "next/link";
 import { handleSubmit } from "./action";
 

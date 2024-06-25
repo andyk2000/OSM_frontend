@@ -12,20 +12,19 @@ let userToken = "";
 
 const getToken = (token: string) => {
   userToken = token;
-  console.log(userToken);
 };
 
 const axiosConfig = axios.create({
   baseURL: conf.backend,
   headers: {
     "Content-Type": "application/json",
-    Authorization: userToken,
   },
 });
 
 axiosConfig.interceptors.request.use(
   (config) => {
     config.headers.Authorization = userToken;
+    console.log(config.headers.Authorization);
     return config;
   },
   (error) => {

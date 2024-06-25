@@ -2,11 +2,11 @@
 
 import clsx from "clsx";
 import styles from "./page.module.css";
-import { Newsreader } from "@next/font/google";
+import { Newsreader } from "next/font/google";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useState } from "react";
-import { handleSubmit, pageRedirect } from "./action";
+import { signIn } from "next-auth/react";
 
 const newsreader = Newsreader({
   weight: "700",
@@ -27,7 +27,6 @@ export default function Login() {
   const [icon, setIcon] = useState("ph:eye-slash");
   const [passwordType, setPasswordType] = useState("password");
   const [visible, setVisible] = useState(false);
-  const [message, setMessage] = useState("");
 
   const changeVisibility = () => {
     setVisible(!visible);
@@ -46,14 +45,11 @@ export default function Login() {
   };
 
   const submitAnswer = async () => {
-    const answer = await handleSubmit(user);
-    if (typeof answer?.message === "string") {
-      setMessage(answer.message);
-      if (typeof answer.token === "string") {
-        localStorage.setItem("token", answer.token);
-        pageRedirect();
-      }
-    }
+    await signIn("credentials", {
+      username: user.email,
+      password: user.password,
+      callbackUrl: "/merchant/dashboard",
+    });
   };
 
   return (
@@ -111,7 +107,6 @@ export default function Login() {
           <button className={styles.loginButton} onClick={submitAnswer}>
             Login
           </button>
-          {message && <p className={styles.message}>{message}</p>}
         </div>
       </div>
       <div className={styles.rightSection}>
