@@ -1,0 +1,470 @@
+.pageContainer {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.headerLeftSection {
+  width: 14rem;
+}
+
+.storeTitle {
+  width: 100%;
+  overflow-x: hidden;
+  padding-inline: 0.4rem;
+  padding-block: 0.6rem;
+  background-color: rgba(62, 97, 172, 0.04);
+  outline: none;
+  color: rgba(62, 97, 172);
+  border-style: solid;
+  border-width: 0.15rem;
+  border-color: rgba(62, 97, 172);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.storeNames {
+  border-style: none;
+}
+
+.newStoreButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #3e61ac;
+  padding-inline: 0.75rem;
+  padding-block: 0.5rem;
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border-style: none;
+  outline: none;
+}
+
+.newStoreButtonText {
+  margin-left: 0.25rem;
+  text-align: center;
+  align-items: center;
+}
+
+.subHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 0.5rem;
+}
+
+.locationSection {
+  display: flex;
+  align-items: center;
+}
+
+.locationText,
+.storeURLText {
+  color: rgba(62, 97, 172);
+  padding-left: 1rem;
+}
+
+.storeURLSection {
+  display: flex;
+  align-items: center;
+}
+
+.viewStore {
+  cursor: pointer;
+}
+
+.viewSection p {
+  background-color: rgba(62, 97, 172, 0.2);
+  padding-inline: 0.6rem;
+  padding-block: 0.25rem;
+  border-radius: 0.5rem;
+  color: #3e61ac;
+}
+
+.cardContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mainCard {
+  background: #3e61ac;
+  padding-inline: 0.5rem;
+  padding-block: 1rem;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 7.5rem;
+  justify-content: space-between;
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.2);
+  /* transition: height 100ms ease-in-out; */
+}
+
+/* .mainCard:hover {
+  height: 250px;
+  background: white;
+} */
+
+.mainCardFirstLine {
+  width: 15rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mainCardtitle {
+  margin-left: 1.5rem;
+}
+
+.mainCardIconContainer {
+  background-color: #ffffff;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainCardLastLine {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding-inline: 1rem;
+}
+
+.mainCardValue {
+  text-align: right;
+  font-size: 1.5rem;
+}
+
+.card {
+  background: #ffffff;
+  padding-inline: 0.5rem;
+  padding-block: 1rem;
+  color: #3e61ac;
+  display: flex;
+  flex-direction: column;
+  height: 7.5rem;
+  justify-content: space-between;
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cardFirstLine {
+  width: 15rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cardtitle {
+  margin-left: 1.5rem;
+  color: #3e61ac;
+}
+
+.iconContainer {
+  background-color: #f2e97f;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardLastLine {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding-inline: 1rem;
+}
+
+.cardValue {
+  text-align: right;
+  font-size: 1.5rem;
+  color: #3e61ac;
+}
+
+.serviceNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.searchFilter {
+  display: flex;
+}
+
+.category {
+  overflow-x: hidden;
+  padding-inline: 0.4rem;
+  padding-block: 0.6rem;
+  outline: none;
+  color: black;
+  background: transparent;
+  border-style: none;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: rgba(0, 0, 0, 0.4);
+  font-size: 1rem;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.searchInput {
+  height: 100%;
+  width: 20rem;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: black;
+  font-size: 1.2rem;
+  padding-inline: 0.3rem;
+  padding-block: 0.3rem;
+  margin-right: 0.5rem;
+}
+
+.searchButton {
+  cursor: pointer;
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 2rem;
+}
+
+.filter p {
+  margin-right: 0.5rem;
+}
+
+.newService {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 0.6rem;
+  padding-inline: 0.5rem;
+  background: #3e61ac;
+  color: white;
+  border-style: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.newService p {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.fitlerContainer {
+  display: none;
+}
+
+.fitlerContainerActive {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.filterField {
+  width: 100%;
+  display: flex;
+}
+
+.datePicker {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+}
+
+.endDatePicker {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0.5rem;
+  margin-left: 2rem;
+}
+
+.filterButtonSection {
+  display: flex;
+  flex-direction: raw;
+  justify-content: right;
+  align-items: center;
+  height: fit-content;
+  width: fit-content;
+  margin-top: 0.5rem;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  background: #3e61ac;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border-style: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.tableSection {
+  display: flex;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.primaryTable {
+  width: 100%;
+}
+
+.table {
+  padding: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3e61ac;
+  border-radius: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.tableHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(62, 97, 172);
+}
+
+.tableHeadLeftSection {
+  display: flex;
+}
+
+.tableHeadRightSection {
+  display: flex;
+}
+
+.headDateTitle {
+  width: 8rem;
+}
+
+.headCustomerTitle {
+  width: 20rem;
+}
+
+.tableHeadRightSection {
+  display: flex;
+}
+
+.headItemTitle {
+  width: 10rem;
+}
+
+.headTitle {
+  width: 8rem;
+}
+
+.tableRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-block: 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0, 0, 0, 0.15);
+}
+
+.dataLeftSection {
+  display: flex;
+  align-items: center;
+}
+
+.dataRightSection {
+  display: flex;
+  align-items: center;
+}
+
+.tableDateCell {
+  width: 8rem;
+  overflow-x: hidden;
+}
+
+.tableCustomerCell {
+  width: 20rem;
+}
+
+.tableItemCell {
+  width: 10rem;
+  overflow-x: hidden;
+}
+
+.tableCell {
+  width: 8rem;
+  overflow-x: hidden;
+}
+
+.sideTables {
+  margin-left: 0.5rem;
+  width: 25%;
+}
+
+.sideTableHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(62, 97, 172);
+}
+
+.tableTitle {
+  font-size: 1rem;
+  color: rgb(62, 97, 172);
+  font-weight: 800;
+}
+
+.sideTableRow {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(0, 0, 0, 0.15);
+}

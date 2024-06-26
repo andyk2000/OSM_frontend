@@ -3,9 +3,9 @@
 import { useState } from "react";
 import clsx from "clsx";
 import styles from "./page.module.css";
-import { Newsreader } from "@next/font/google";
-import axios from "axios";
+import { Newsreader } from "next/font/google";
 import Link from "next/link";
+import { handleSubmit } from "./action";
 
 const newsreader = Newsreader({
   weight: "700",
@@ -18,29 +18,6 @@ interface User {
   password: string;
   role: string;
 }
-
-interface Config {
-  backend: string;
-}
-
-const config: Config = {
-  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "http://localhost:3000",
-};
-
-const createPost = async (postData: User) => {
-  const postLink = config.backend + "/user/signup";
-  try {
-    const response = await axios.post(postLink, postData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    return { success: true, data: response.data };
-  } catch (error) {
-    console.error("Error creating post:", error);
-    return { success: false, message: "Something went wrong" };
-  }
-};
 
 export default function SignUp() {
   const [user, setUser] = useState<User>({
@@ -68,24 +45,10 @@ export default function SignUp() {
     setUser({ ...user, role: selectedRole });
   };
 
-  const handleSubmit = async () => {
-    if (user.password !== confirmPassword) {
-      setMessage("Passwords do not match");
-      return;
-    }
-
-    try {
-      const res = await createPost(user);
-      if (res.success && res.data) {
-        setMessage("Sign up successful");
-        return;
-      }
-
-      if (!res.success && res.message) {
-        setMessage(res.message);
-      }
-    } catch (error) {
-      setMessage("Sign up failed. Please try again.");
+  const submitAnswer = async () => {
+    const answer = await handleSubmit(confirmPassword, user);
+    if (typeof answer === "string") {
+      setMessage(answer);
     }
   };
 
@@ -180,7 +143,7 @@ export default function SignUp() {
             <h4 className={styles.categoryTitle}>
               Already have an account? Click <Link href="/login">here</Link>
             </h4>
-            <button className={styles.signUpButton} onClick={handleSubmit}>
+            <button className={styles.signUpButton} onClick={submitAnswer}>
               Sign Up
             </button>
             {message && <p className={styles.message}>{message}</p>}

@@ -1,0 +1,46 @@
+"use server";
+
+import axios from "axios";
+// import { getServerSession } from "next-auth";
+import { getSession } from "next-auth/react";
+// import { auth } from "@/auth";
+import { cookies } from "next/headers";
+
+interface Config {
+  backend: string;
+}
+
+const conf: Config = {
+  backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "http://localhost:3001",
+};
+
+const axiosConfig = axios.create({
+  baseURL: conf.backend,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+axiosConfig.interceptors.request.use(
+  async (config) => {
+    const token = cookies().get("token")?.value;
+    config.headers.Authorization = token;
+    console.log("AUTH::", token);
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
+axiosConfig.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+    }
+    return Promise.reject(error);
+  },
+);
+
+export { axiosConfig };
