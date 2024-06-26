@@ -1,4 +1,10 @@
+"use server";
+
 import axios from "axios";
+// import { getServerSession } from "next-auth";
+import { getSession } from "next-auth/react";
+// import { auth } from "@/auth";
+import { cookies } from "next/headers";
 
 interface Config {
   backend: string;
@@ -6,12 +12,6 @@ interface Config {
 
 const conf: Config = {
   backend: process.env.NEXT_PUBLIC_BACKEND_LINK || "http://localhost:3001",
-};
-
-let userToken = "";
-
-const getToken = (token: string) => {
-  userToken = token;
 };
 
 const axiosConfig = axios.create({
@@ -22,9 +22,10 @@ const axiosConfig = axios.create({
 });
 
 axiosConfig.interceptors.request.use(
-  (config) => {
-    config.headers.Authorization = userToken;
-    console.log(config.headers.Authorization);
+  async (config) => {
+    const token = cookies().get("token")?.value;
+    config.headers.Authorization = token;
+    console.log("AUTH::", token);
     return config;
   },
   (error) => {
@@ -42,4 +43,4 @@ axiosConfig.interceptors.response.use(
   },
 );
 
-export { axiosConfig, getToken };
+export { axiosConfig };

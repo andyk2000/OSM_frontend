@@ -71,24 +71,20 @@ export default function Store() {
     },
   ]);
 
-  const [, setSearchResult] = useState([]);
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [filterOn, setFilterOn] = useState(false);
   useEffect(() => {
     const fetchStores = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const availableStores = await getStores(token);
-          setStores(availableStores.data);
-          if (availableStores.data.length > 0) {
-            setActiveStore(availableStores.data[0]);
-          }
-        } catch (error) {
-          console.error("Error fetching stores:", error);
+      try {
+        const availableStores = await getStores();
+        setStores(availableStores.data);
+        if (availableStores.data.length > 0) {
+          setActiveStore(availableStores.data[0]);
         }
+      } catch (error) {
+        console.error("Error fetching stores:", error);
       }
     };
 
@@ -97,12 +93,11 @@ export default function Store() {
 
   useEffect(() => {
     const fetchCardData = async () => {
-      const token = localStorage.getItem("token");
-      if (activeStore && token) {
+      if (activeStore) {
         try {
-          const data = await getCardData(activeStore.id, token);
-          const tableData = await getPrimaryTableData(activeStore.id, token);
-          const stats = await getStats(activeStore.id, token);
+          const data = await getCardData(activeStore.id);
+          const tableData = await getPrimaryTableData(activeStore.id);
+          const stats = await getStats(activeStore.id);
           setCardData(data.data);
           setTableRecords(tableData.data);
           setBestUser(stats.data.users);
@@ -141,10 +136,9 @@ export default function Store() {
   );
 
   const handleChange = async (e: { target: { value: string } }) => {
-    const token = localStorage.getItem("token");
     const newValue = e.target.value;
-    if (newValue === "" && activeStore && token) {
-      const tableData = await getPrimaryTableData(activeStore.id, token);
+    if (newValue === "" && activeStore) {
+      const tableData = await getPrimaryTableData(activeStore.id);
       setTableRecords(tableData.data);
       setSearch(newValue);
     } else {
@@ -155,14 +149,12 @@ export default function Store() {
       }
 
       const timeout = setTimeout(async () => {
-        if (activeStore && token) {
+        if (activeStore) {
           const s_result = await searchData(
             activeStore.id,
-            token,
             newValue,
             activeCategory,
           );
-          setSearchResult(s_result.data);
           setTableRecords(s_result.data);
         }
       }, 600);
@@ -176,9 +168,7 @@ export default function Store() {
   };
 
   const submitFilter = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!activeStore || !token) {
+    if (!activeStore) {
       console.error("Active store or token is missing");
       return;
     }
@@ -188,13 +178,13 @@ export default function Store() {
       if (startDate && endDate) {
         const start = format(startDate, "yyyy-MM-dd");
         const end = format(endDate, "yyyy-MM-dd");
-        tableData = await filterData(activeStore.id, token, start, end);
+        tableData = await filterData(activeStore.id, start, end);
       } else if (!startDate && endDate) {
         const end = format(endDate, "yyyy-MM-dd");
-        tableData = await filterData(activeStore.id, token, undefined, end);
+        tableData = await filterData(activeStore.id, undefined, end);
       } else if (startDate && !endDate) {
         const start = format(startDate, "yyyy-MM-dd");
-        tableData = await filterData(activeStore.id, token, start);
+        tableData = await filterData(activeStore.id, start);
       } else {
         console.warn("Neither startDate nor endDate is provided");
         return;

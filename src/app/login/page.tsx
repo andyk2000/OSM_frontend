@@ -5,8 +5,8 @@ import styles from "./page.module.css";
 import { Newsreader } from "next/font/google";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { getSession, signIn } from "next-auth/react";
 
 const newsreader = Newsreader({
   weight: "700",
@@ -51,6 +51,13 @@ export default function Login() {
       callbackUrl: "/merchant/dashboard",
     });
   };
+
+  useEffect(() => {
+    const check = async () => {
+      console.log("AUTH", await getSession());
+    };
+    check();
+  }, []);
 
   return (
     <main className={styles.main}>

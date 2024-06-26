@@ -28,16 +28,13 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const token = localStorage.getItem("token");
-      if (typeof token === "string") {
-        const result = await getCardData(token);
-        const tdata = await getTableData(token);
-        if (result.success) {
-          setCardData(result.data);
-        }
-        if (tdata.success) {
-          setTableData(tdata.data);
-        }
+      const result = await getCardData();
+      const tdata = await getTableData();
+      if (result.success) {
+        setCardData(result.data);
+      }
+      if (tdata.success) {
+        setTableData(tdata.data);
       }
       setLoading(false);
     };

@@ -1,51 +1,47 @@
 "use server";
 
-import { axiosConfig, getToken } from "@/api.config/axios.config";
+import { axiosConfig } from "@/api.config/axios.config";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 
-const getStores = async (token: string) => {
-  getToken(token);
+const getStores = async () => {
   try {
     const response = await axiosConfig.get("/store/");
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    // console.error("Error fetching data:", error);
     return { success: false, message: "Something went wrong", data: null };
   }
 };
 
-const getCardData = async (storeId: number, token: string) => {
+const getCardData = async (storeId: number) => {
   try {
-    getToken(token);
     const response = await axiosConfig.post("/store/card/data", {
       storeId: storeId,
     });
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    // console.error("Error fetching data:", error);
     return { success: false, message: "Something went wrong", data: null };
   }
 };
 
-const getPrimaryTableData = async (storeId: number, token: string) => {
+const getPrimaryTableData = async (storeId: number) => {
   try {
-    getToken(token);
     const response = await axiosConfig.post("/payment/service-sold", {
       storeId: storeId,
     });
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    // console.error("Error fetching data:", error);
     return { success: false, message: "something went wrong", data: null };
   }
 };
 
-const getStats = async (storeId: number, token: string) => {
-  getToken(token);
+const getStats = async (storeId: number) => {
   try {
     const response = await axiosConfig.post("/payment/stats", {
       storeId: storeId,
@@ -53,18 +49,16 @@ const getStats = async (storeId: number, token: string) => {
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    // console.error("Error fetching data:", error);
     return { success: false, message: "something went wrong", data: null };
   }
 };
 
 const searchData = async (
   storeId: number,
-  token: string,
   search_string: string,
   activeCategory: string,
 ) => {
-  getToken(token);
   try {
     const response = await axiosConfig.post("/payment/search", {
       storeId: storeId,
@@ -74,18 +68,16 @@ const searchData = async (
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    // console.error("Error fetching data:", error);
     return { success: false, message: "something went wrong", data: null };
   }
 };
 
 const filterData = async (
   storeId: number,
-  token: string,
   start_date?: string,
   end_date?: string,
 ) => {
-  getToken(token);
   try {
     const response = await axiosConfig.post("/payment/filter/date", {
       storeId: storeId,
@@ -95,7 +87,7 @@ const filterData = async (
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    console.error("Error fetching data:", error);
+    // console.error("Error fetching data:", error);
     return { success: false, message: "something went wrong", data: null };
   }
 };
