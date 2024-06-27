@@ -172,16 +172,6 @@ export default function SignUp() {
                   className={styles.errorMessage}
                 />
               </div>
-              {/* <div className={styles.fieldContainer}>
-                <input
-                  className={styles.input}
-                  type="password"
-                  placeholder="Confirm Password"
-                  name="confirmPassword"
-                  value={confirmPassword}
-                  onChange={handleConfirmPasswordChange}
-                />
-              </div> */}
               <h4 className={styles.categoryTitle}>Choose a category</h4>
               <div className={styles.category}>
                 <div
