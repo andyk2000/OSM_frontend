@@ -2,4 +2,4 @@
 #!/usr/bin/env sh
 . "$(dirname "$0")//husky.sh"
 
-# npm run prepush
+npm run prepush
