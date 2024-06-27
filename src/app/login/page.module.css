@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 7rem;
+  justify-content: center;
   background-color: #ffffff;
 }
 
@@ -38,7 +38,6 @@
   background: transparent;
   padding: 0.6rem;
   width: 20rem;
-  font-size: 1rem;
 }
 
 .passwordField {
@@ -48,7 +47,7 @@
   border-color: #3e61ac;
   border-radius: 0.3rem;
   align-items: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .passwordInput {
@@ -58,7 +57,6 @@
   background: transparent;
   padding: 0.6rem;
   width: 18rem;
-  font-size: 1rem;
 }
 
 .eyeIcon {
@@ -68,13 +66,15 @@
 
 .signUpredirect {
   margin-top: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .signUpLink {
   color: #f9977b;
+  font-size: 0.9rem;
 }
 
-.loginButton {
+.loginButtonActive {
   border-style: none;
   background-color: #3e61ac;
   padding-inline: 0.5rem;
@@ -86,14 +86,21 @@
   width: 20rem;
 }
 
+.loginButton {
+  display: none;
+}
+
 .rightSection {
-  padding-top: 7rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   color: white;
+  justify-content: center;
 }
 
 .rightContainer {
-  margin-inline: 3rem;
+  margin-inline: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,8 +110,8 @@
 
 .rightContainer p {
   text-align: center;
-  margin-top: 4rem;
-  font-size: 1.2rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
 }
 
 @media (max-width: 480px) {

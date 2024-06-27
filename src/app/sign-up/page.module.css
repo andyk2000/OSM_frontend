@@ -16,34 +16,39 @@
 .leftSection {
   background: transparent;
   margin-inline: 5rem;
-  padding-top: 4rem;
+  /* padding-top: 4rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   padding-bottom: 3rem;
+}
+
+.leftSection div h1 {
+  font-size: 2.5rem;
+  text-align: center;
 }
 
 .textContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 3rem;
 }
 
 .text {
   text-align: center;
-  font-size: 1rem;
-  line-height: 2rem;
+  line-height: 1.7rem;
   margin-top: 1.5rem;
   color: white;
 }
 
 .rightSection {
   background: #ffffff;
-  height: 100%;
-  padding-block: 4rem;
+  min-height: max-content;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
+  font-size: 1rem;
 }
 
 .rightSectionContainer {
@@ -63,53 +68,57 @@
   border-width: 1px;
   border-color: #3e61ac;
   border-radius: 5px;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .input {
-  padding: 0.5rem;
+  padding: 0.6rem;
   outline: none;
   border-style: none;
   background: transparent;
   width: 20rem;
-  font-size: 1.1rem;
   color: rgb(31, 31, 31);
 }
 
 .categoryTitle {
   margin-bottom: 0.2rem;
   font-weight: 400;
+  font-size: 0.9rem;
 }
 
 .categoryTitle a {
   color: #f9977b;
   text-decoration: none;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .category {
-  margin-block: 1.5rem;
+  width: 78%;
+  margin-block: 0.75rem;
   display: flex;
   justify-content: space-between;
 }
 
 .categoryContainer {
-  padding-block: 0.85rem;
-  padding-inline: 1.5rem;
+  padding-block: 0.75rem;
+  padding-inline: 1.25rem;
   border-style: solid;
   border-width: 1px;
   border-color: #3e61ac;
   border-radius: 5px;
   color: #3e61ac;
   cursor: pointer;
+  font-size: 0.8rem;
 }
 
 .categoryContainerActive {
-  padding-block: 0.85rem;
-  padding-inline: 1.5rem;
+  padding-block: 0.75rem;
+  padding-inline: 1.25rem;
   background-color: #f2e97f;
   border-style: solid;
   border-color: #f2e97f;
@@ -117,16 +126,27 @@
   border-radius: 5px;
   color: #3e61ac;
   cursor: pointer;
+  font-size: 0.8rem;
 }
 
 .signUpButton {
+  display: none;
+}
+
+.signUpButtonActive {
+  width: 20rem;
   border-style: none;
   background-color: #3e61ac;
   padding-inline: 0.5rem;
   padding-block: 0.75rem;
+  margin-top: 1.5rem;
   border-radius: 5px;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .message {
@@ -134,9 +154,35 @@
   margin-top: 1rem;
 }
 
-/* Media Queries for responsiveness */
+.fieldInput {
+  background: white;
+  color: black;
+  width: 20rem;
+  outline: none;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3e61ac;
+  border-radius: 5px;
+  padding: 0.6rem;
+  margin-top: 1rem;
+  margin-inline: 3rem;
+}
 
-/* Cell Phones (up to 480px) */
+.errorMessage {
+  color: rgb(255, 0, 0, 0.8);
+  font-size: 0.75rem;
+  margin-left: 3rem;
+  margin-top: 0.2rem;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
 @media (max-width: 480px) {
   .main {
     flex-direction: column;
@@ -205,4 +251,33 @@
 .rightHeading {
   color: #3e61ac;
   border-bottom-color: #3e61ac;
+}
+
+.spinner {
+  animation: rotate 2s linear infinite;
+}
+
+.rotating {
+  display: inline-block;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-height: 480px) {
+  .main {
+    height: max-content;
+  }
+  .rightSection {
+    height: 100%;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
 }

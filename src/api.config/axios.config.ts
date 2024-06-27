@@ -1,9 +1,7 @@
+/* eslint-disable prettier/prettier */
 "use server";
 
 import axios from "axios";
-// import { getServerSession } from "next-auth";
-import { getSession } from "next-auth/react";
-// import { auth } from "@/auth";
 import { cookies } from "next/headers";
 
 interface Config {
@@ -25,7 +23,6 @@ axiosConfig.interceptors.request.use(
   async (config) => {
     const token = cookies().get("token")?.value;
     config.headers.Authorization = token;
-    console.log("AUTH::", token);
     return config;
   },
   (error) => {

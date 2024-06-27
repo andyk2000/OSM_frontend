@@ -5,8 +5,8 @@ import styles from "./page.module.css";
 import { Newsreader } from "next/font/google";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { getSession, signIn } from "next-auth/react";
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 const newsreader = Newsreader({
   weight: "700",
@@ -27,6 +27,7 @@ export default function Login() {
   const [icon, setIcon] = useState("ph:eye-slash");
   const [passwordType, setPasswordType] = useState("password");
   const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const changeVisibility = () => {
     setVisible(!visible);
@@ -45,19 +46,14 @@ export default function Login() {
   };
 
   const submitAnswer = async () => {
+    setLoading(true);
     await signIn("credentials", {
       username: user.email,
       password: user.password,
       callbackUrl: "/merchant/dashboard",
     });
+    setLoading(false);
   };
-
-  useEffect(() => {
-    const check = async () => {
-      console.log("AUTH", await getSession());
-    };
-    check();
-  }, []);
 
   return (
     <main className={styles.main}>
@@ -111,8 +107,26 @@ export default function Login() {
               Here
             </Link>
           </div>
-          <button className={styles.loginButton} onClick={submitAnswer}>
+          <button
+            className={clsx(styles.loginButtonActive, {
+              [styles.loginButton]: loading === true,
+            })}
+            onClick={submitAnswer}
+          >
             Login
+          </button>
+          <button
+            className={clsx(styles.loginButton, {
+              [styles.loginButtonActive]: loading === true,
+            })}
+          >
+            <Icon
+              icon="ph:spinner-gap"
+              style={{ color: "white" }}
+              height={25}
+              width={25}
+              className={styles.spinner}
+            />
           </button>
         </div>
       </div>
@@ -121,7 +135,7 @@ export default function Login() {
           <h1
             className={clsx(newsreader.className)}
             style={{
-              fontSize: "2.1rem",
+              fontSize: "2.4rem",
               fontWeight: "bolder",
               color: "#FFFFFF",
               borderBottomStyle: "solid",
@@ -133,21 +147,12 @@ export default function Login() {
             Welcome Back
           </h1>
           <p>
-            More than 10, 000 stores, with hundreds
-            <br />
-            of articles are waiting for you.
+            More than 10, 000 stores, with hundreds of articles are waiting for
+            you.
             <br /> New:
             <br />
-            50% coupon on every store, for user with more
-            <br /> than a year of using our services.
-          </p>
-          <p>
-            For the merchant,
-            <br /> There a new feature that allows you to reach your
-            <br />
-            customer even faster,
-            <br />
-            with our new adds feature.
+            50% coupon on every store, for user with more than a year of using
+            our services.
           </p>
         </div>
       </div>

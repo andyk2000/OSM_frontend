@@ -24,8 +24,8 @@ export const nextOptions: NextAuthOptions = {
             return { id: "id", access_token: user.token };
           }
           return null;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-          console.log("error+++++", error.response.data);
           return null;
         }
       },
@@ -44,6 +44,7 @@ export const nextOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         token.access_token = (user as any).access_token;
       }
 
