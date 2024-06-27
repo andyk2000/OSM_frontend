@@ -44,7 +44,7 @@
           {
           "js": "never",
           "jsx": "never",
-          "ts": "never",
+          "ts": "always",
           "tsx": "never"
           }
       ]

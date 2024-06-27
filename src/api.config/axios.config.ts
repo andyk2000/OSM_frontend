@@ -1,7 +1,6 @@
 "use server";
 
 import axios from "axios";
-import { getSession } from "next-auth/react";
 import { cookies } from "next/headers";
 
 interface Config {
