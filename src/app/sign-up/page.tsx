@@ -5,7 +5,9 @@ import clsx from "clsx";
 import styles from "./page.module.css";
 import { Newsreader } from "next/font/google";
 import Link from "next/link";
-import { handleSubmit } from "./action";
+import { handleSubmit, redirectLogin } from "./action";
+import { Icon } from "@iconify/react";
+import Swal from "sweetalert2";
 
 const newsreader = Newsreader({
   weight: "700",
@@ -28,7 +30,7 @@ export default function SignUp() {
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -46,29 +48,51 @@ export default function SignUp() {
   };
 
   const submitAnswer = async () => {
+    setLoading(true);
     const answer = await handleSubmit(confirmPassword, user);
-    if (typeof answer === "string") {
-      setMessage(answer);
+    if (typeof answer?.answer === "string") {
+      if (answer.created) {
+        redirectUser();
+      } else {
+        createMessage(answer.answer);
+      }
     }
+    setLoading(false);
+  };
+
+  const redirectUser = () => {
+    Swal.fire({
+      title: "Good job!",
+      text: "Signup successful, you are going to be redirected to the login page",
+      icon: "success",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Proceed!",
+    }).then(() => {
+      redirectLogin();
+    });
+  };
+
+  const createMessage = (textMessage: string) => {
+    Swal.fire({
+      icon: "error",
+      title: "Signup failed",
+      text: textMessage,
+    });
   };
 
   return (
     <main className={styles.main}>
       <div className={styles.leftSection}>
-        <h1 className={clsx(newsreader.className, styles.heading)}>
-          Come, Join Us
-        </h1>
-        <div className={styles.textContainer}>
-          <p className={styles.text}>
-            More than 10,000 stores, with hundreds of articles are waiting for
-            you. Enjoy our 50% promo coupon upon subscription.
-          </p>
-          <p className={styles.text}>
-            Are you a merchant and wish to expand your business?
-            <br />
-            Join us, and sell your product to hundreds of thousands of customers
-            from all around the world.
-          </p>
+        <div>
+          <h1 className={clsx(newsreader.className, styles.heading)}>
+            Join Us!
+          </h1>
+          <div className={styles.textContainer}>
+            <p className={styles.text}>
+              More than 10,000 stores, with hundreds of articles are waiting for
+              you. Enjoy our 50% promo coupon upon subscription.
+            </p>
+          </div>
         </div>
       </div>
       <div className={styles.rightSection}>
@@ -143,11 +167,29 @@ export default function SignUp() {
             <h4 className={styles.categoryTitle}>
               Already have an account? Click <Link href="/login">here</Link>
             </h4>
-            <button className={styles.signUpButton} onClick={submitAnswer}>
+            <button
+              className={clsx(styles.signUpButton, {
+                [styles.signUpButtonActive]: loading === false,
+              })}
+              onClick={submitAnswer}
+            >
               Sign Up
             </button>
-            {message && <p className={styles.message}>{message}</p>}
+            <button
+              className={clsx(styles.signUpButton, {
+                [styles.signUpButtonActive]: loading === true,
+              })}
+            >
+              <Icon
+                icon="ph:spinner-gap"
+                style={{ color: "white" }}
+                height={25}
+                width={25}
+                className={styles.spinner}
+              />
+            </button>
           </div>
+          <div id="modal"></div>
         </div>
       </div>
     </main>
