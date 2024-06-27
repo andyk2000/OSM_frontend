@@ -36,13 +36,7 @@ const createPost = async (postData: User) => {
   }
 };
 
-const handleSubmit = async (confirmPassword: string, user: User) => {
-  if (user.password !== confirmPassword) {
-    answer = "Passwords do not match";
-    const created = false;
-    return { answer, created };
-  }
-
+const handleSubmit = async (user: User) => {
   try {
     const res = await createPost(user);
     if (res.success && res.data) {
