@@ -22,7 +22,6 @@ const createPost = async (postData: User) => {
     return { success: true, data: response.data };
   } catch (error: any) {
     if (error.response.data.error !== "Bad Request") {
-      console.log(error.response.data.error);
       return {
         success: false,
         answer: error.response.data.error,
@@ -58,7 +57,6 @@ const handleSubmit = async (confirmPassword: string, user: User) => {
     }
   } catch (error) {
     answer = "Sign up failed. Please try again.";
-    console.log(error);
     const created = false;
     return { answer, created };
   }

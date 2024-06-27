@@ -25,7 +25,6 @@ export const nextOptions: NextAuthOptions = {
           }
           return null;
         } catch (error: any) {
-          console.log("error+++++", error.response.data);
           return null;
         }
       },
