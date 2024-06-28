@@ -7,6 +7,10 @@ import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import Swal from "sweetalert2";
+import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { pageRedirect } from "./action";
 
 const newsreader = Newsreader({
   weight: "700",
@@ -19,9 +23,16 @@ interface User {
 }
 
 export default function Login() {
-  const [user, setUser] = useState<User>({
+  const user = {
     email: "",
     password: "",
+  };
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("* Invalid email address")
+      .required("* Email is required"),
+    password: Yup.string().required("* Password is required"),
   });
 
   const [icon, setIcon] = useState("ph:eye-slash");
@@ -40,18 +51,23 @@ export default function Login() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-  };
-
-  const submitAnswer = async () => {
+  const submitAnswer = async (values: User) => {
     setLoading(true);
-    await signIn("credentials", {
-      username: user.email,
-      password: user.password,
-      callbackUrl: "/merchant/dashboard",
+    const result = await signIn("credentials", {
+      redirect: false,
+      username: values.email,
+      password: values.password,
+      // callbackUrl: "/merchant/dashboard",
     });
+    if (!result?.ok) {
+      Swal.fire({
+        title: "Login failed",
+        text: "check your email and password again.",
+        icon: "error",
+      });
+    } else {
+      pageRedirect();
+    }
     setLoading(false);
   };
 
@@ -74,60 +90,75 @@ export default function Login() {
           >
             Login!
           </h1>
-          <div className={styles.emailField}>
-            <input
-              className={styles.emailInput}
-              name="email"
-              value={user.email}
-              placeholder="Email"
-              onChange={handleChange}
-            />
-          </div>
-          <div className={styles.passwordField}>
-            <input
-              className={styles.passwordInput}
-              type={passwordType}
-              name="password"
-              value={user.password}
-              placeholder="Password"
-              onChange={handleChange}
-            />
-            <Icon
-              icon={icon}
-              width={30}
-              height={30}
-              color="grey"
-              className={styles.eyeIcon}
-              onClick={changeVisibility}
-            />
-          </div>
-          <div className={styles.signUpredirect}>
-            You don’t have an account? Click{" "}
-            <Link href="/sign-up" className={styles.signUpLink}>
-              Here
-            </Link>
-          </div>
-          <button
-            className={clsx(styles.loginButtonActive, {
-              [styles.loginButton]: loading === true,
-            })}
-            onClick={submitAnswer}
+          <Formik
+            initialValues={user}
+            validationSchema={validationSchema}
+            onSubmit={submitAnswer}
           >
-            Login
-          </button>
-          <button
-            className={clsx(styles.loginButton, {
-              [styles.loginButtonActive]: loading === true,
-            })}
-          >
-            <Icon
-              icon="ph:spinner-gap"
-              style={{ color: "white" }}
-              height={25}
-              width={25}
-              className={styles.spinner}
-            />
-          </button>
+            <Form method="post" className={styles.formContainer}>
+              <div>
+                <Field
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="email@youremail.com"
+                  className={styles.fieldInput}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={styles.errorMessage}
+                />
+              </div>
+              <div>
+                <div className={styles.passwordField}>
+                  <Field
+                    type={passwordType}
+                    id="password"
+                    name="password"
+                    placeholder="password"
+                    className={styles.passwordInput}
+                  />
+                  <Icon
+                    icon={icon}
+                    width={30}
+                    height={30}
+                    color="grey"
+                    className={styles.eyeIcon}
+                    onClick={changeVisibility}
+                  />
+                </div>
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={styles.errorMessage}
+                />
+              </div>
+              <div className={styles.signUpredirect}>
+                You don’t have an account? Click{" "}
+                <Link href="/sign-up" className={styles.signUpLink}>
+                  Here
+                </Link>
+              </div>
+              <button
+                className={styles.loginButtonActive}
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? (
+                  <Icon
+                    icon="ph:spinner-gap"
+                    style={{ color: "white" }}
+                    height={25}
+                    width={25}
+                    className={styles.spinner}
+                  />
+                ) : (
+                  "Login"
+                )}
+              </button>
+            </Form>
+          </Formik>
         </div>
       </div>
       <div className={styles.rightSection}>
@@ -147,7 +178,7 @@ export default function Login() {
             Welcome Back
           </h1>
           <p>
-            More than 10, 000 stores, with hundreds of articles are waiting for
+            More than 10,000 stores, with hundreds of articles are waiting for
             you.
             <br /> New:
             <br />

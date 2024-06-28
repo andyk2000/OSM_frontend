@@ -191,13 +191,14 @@ export default function SignUp() {
                   Merchant
                 </div>
               </div>
-              <h4 className={styles.categoryTitle}>
+              <h4 className={styles.signInText}>
                 Already have an account? Click <Link href="/login">here</Link>
               </h4>
               <button
                 className={clsx(styles.signUpButton, {
                   [styles.signUpButtonActive]: loading === false,
                 })}
+                disabled={loading}
                 type="submit"
               >
                 Sign Up
@@ -206,6 +207,7 @@ export default function SignUp() {
                 className={clsx(styles.signUpButton, {
                   [styles.signUpButtonActive]: loading === true,
                 })}
+                disabled={loading}
               >
                 <Icon
                   icon="ph:spinner-gap"
