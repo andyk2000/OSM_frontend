@@ -23,31 +23,15 @@
   width: fit-content;
 }
 
-.emailField {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #3e61ac;
-  border-radius: 0.3rem;
-  margin-top: 5.5rem;
-}
-
-.emailInput {
-  color: rgb(31, 31, 31);
-  outline: none;
-  border-style: none;
-  background: transparent;
-  padding: 0.6rem;
-  width: 20rem;
-}
-
 .passwordField {
+  width: fit-content;
   display: flex;
   border-style: solid;
   border-width: 1px;
   border-color: #3e61ac;
   border-radius: 0.3rem;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 0.75rem;
 }
 
 .passwordInput {
@@ -112,6 +96,47 @@
   text-align: center;
   margin-top: 2rem;
   font-size: 0.9rem;
+}
+
+.spinner {
+  animation: rotate 2s linear infinite;
+}
+
+.rotating {
+  display: inline-block;
+  animation: rotate 2s linear infinite;
+}
+
+.errorMessage {
+  color: rgb(255, 0, 0, 0.8);
+  font-size: 0.75rem;
+  margin-top: 0.2rem;
+}
+
+.fieldInput {
+  background: white;
+  color: black;
+  width: 20rem;
+  outline: none;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3e61ac;
+  border-radius: 5px;
+  padding: 0.6rem;
+  margin-top: 1rem;
+}
+
+.formContainer {
+  margin-top: 1.25rem;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 480px) {

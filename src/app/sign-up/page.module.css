@@ -85,12 +85,18 @@
 }
 
 .categoryTitle {
-  margin-bottom: 0.2rem;
+  margin-top: 1rem;
   font-weight: 400;
   font-size: 0.9rem;
 }
 
-.categoryTitle a {
+.signInText {
+  margin-top: 0.5rem;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.signInText a {
   color: #f9977b;
   text-decoration: none;
   cursor: pointer;
