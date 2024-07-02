@@ -20,6 +20,7 @@ const createPost = async (postData: User) => {
   try {
     const response = await axiosConfig.post("/user/signup", postData);
     return { success: true, data: response.data };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.response.data.error !== "Bad Request") {
       return {
