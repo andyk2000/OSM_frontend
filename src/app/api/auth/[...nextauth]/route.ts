@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import NextAuth from "next-auth";
 import { nextOptions } from "./option";
 
