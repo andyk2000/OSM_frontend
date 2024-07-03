@@ -34,7 +34,15 @@ const config: Config = {
 };
 
 export default function Store() {
-  const [stores, setStores] = useState<Store[]>([]);
+  const [stores, setStores] = useState<Store[]>([
+    {
+      id: 0,
+      name: "",
+      address: "",
+      description: "",
+      storeUrl: "",
+    },
+  ]);
   const [activeStore, setActiveStore] = useState<Store | null>(null);
   const [cardData, setCardData] = useState({
     revenue: 0,
