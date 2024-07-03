@@ -34,6 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchMerchantData = async () => {
       const result = await getMerchantData();
+      console.log(result);
       if (result.success && result.data) {
         setEmail(result.data.email);
         setNames(result.data.names);

@@ -16,14 +16,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import clsx from "clsx";
 import { format } from "date-fns";
-
-interface Store {
-  id: number;
-  name: string;
-  address: string;
-  description: string;
-  storeUrl: string;
-}
+import { StoreInfo, StoreCard } from "@/app/types/store.type";
 
 interface Config {
   url: string;
@@ -34,17 +27,18 @@ const config: Config = {
 };
 
 export default function Store() {
-  const [stores, setStores] = useState<Store[]>([
+  const [stores, setStores] = useState<StoreInfo[]>([
     {
       id: 0,
       name: "",
       address: "",
       description: "",
       storeUrl: "",
+      userId: 0,
     },
   ]);
-  const [activeStore, setActiveStore] = useState<Store | null>(null);
-  const [cardData, setCardData] = useState({
+  const [activeStore, setActiveStore] = useState<StoreInfo | null>(null);
+  const [cardData, setCardData] = useState<StoreCard>({
     revenue: 0,
     services: 0,
     serviceSold: 0,
@@ -87,8 +81,8 @@ export default function Store() {
     const fetchStores = async () => {
       try {
         const availableStores = await getStores();
-        setStores(availableStores.data);
-        if (availableStores.data.length > 0) {
+        setStores(availableStores.data || []);
+        if (availableStores.data && availableStores.data.length > 0) {
           setActiveStore(availableStores.data[0]);
         }
       } catch (error) {

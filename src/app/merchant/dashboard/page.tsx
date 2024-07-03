@@ -5,14 +5,16 @@ import { Icon } from "@iconify/react";
 import { Suspense, useState, useEffect } from "react";
 import { CardSectionSkeleton } from "../skeleton/dashboard";
 import { getCardData, getTableData } from "./action";
+import { paidService } from "@/app/types/service.type";
+import { PaymentCard } from "@/app/types/payment.type";
 
 export default function Dashboard() {
-  const [cardData, setCardData] = useState({
+  const [cardData, setCardData] = useState<PaymentCard>({
     storeCount: 0,
     serviceCount: 0,
     totalPayment: 0,
   });
-  const [tableData, setTableData] = useState([
+  const [tableData, setTableData] = useState<paidService[]>([
     {
       item_name: "",
       amount: 0,
@@ -33,7 +35,7 @@ export default function Dashboard() {
       if (result.success) {
         setCardData(result.data);
       }
-      if (tdata.success) {
+      if (tdata.success && tdata.data) {
         setTableData(tdata.data);
       }
       setLoading(false);
