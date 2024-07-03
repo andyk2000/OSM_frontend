@@ -17,6 +17,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { StoreInfo, StoreCard } from "@/app/types/store.type";
+import Image from "next/image";
 
 interface Config {
   url: string;
@@ -77,6 +78,15 @@ export default function Store() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [filterOn, setFilterOn] = useState(false);
+  const [dataAvailable, setDataAvailable] = useState(false);
+
+  useEffect(() => {
+    if (tableRecords.length < 1 || stores.length < 1) {
+      setDataAvailable(false);
+    } else {
+      setDataAvailable(true);
+    }
+  }, [tableRecords, stores]);
   useEffect(() => {
     const fetchStores = async () => {
       try {
@@ -387,9 +397,29 @@ export default function Store() {
           </button>
         </div>
       </div>
-      <div className={styles.filterContainer}></div>
-      <div className={styles.filter}></div>
-      <div className={styles.tableSection}>
+      <div
+        className={clsx(styles.tableDataNotFoundActive, {
+          [styles.tableDataNotFound]: dataAvailable,
+        })}
+      >
+        <Image
+          src="/image/empty.png"
+          width={250}
+          height={250}
+          className={styles.logoImage}
+          alt="urubuto logo"
+        />
+        <h3>
+          There are no transactions yet,
+          <br /> Once customers start buying your services, the transactions
+          will be shown here.
+        </h3>
+      </div>
+      <div
+        className={clsx(styles.tableSectionActive, {
+          [styles.tableSection]: !dataAvailable,
+        })}
+      >
         <div className={styles.primaryTable}>
           <div className={styles.table}>
             <div className={styles.tableHead}>
