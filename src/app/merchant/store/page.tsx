@@ -11,6 +11,7 @@ import {
   searchData,
   filterData,
   redirectToLogin,
+  newStore,
 } from "./action";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -36,6 +37,9 @@ export default function Store() {
       description: "",
       storeUrl: "",
       userId: 0,
+      email: "",
+      phone: "",
+      logo: "",
     },
   ]);
   const [activeStore, setActiveStore] = useState<StoreInfo | null>(null);
@@ -208,6 +212,10 @@ export default function Store() {
     }
   };
 
+  const redirectNewStore = () => {
+    newStore();
+  };
+
   return (
     <div className={styles.pageContainer}>
       <div className={styles.header}>
@@ -225,7 +233,7 @@ export default function Store() {
           </select>
         </div>
         <div className={styles.headerRightSection}>
-          <button className={styles.newStoreButton}>
+          <button className={styles.newStoreButton} onClick={redirectNewStore}>
             <Icon
               icon="ph:plus"
               style={{ color: "white" }}
