@@ -341,10 +341,41 @@
   cursor: pointer;
 }
 
-.tableSection {
+.tableSectionActive {
   display: flex;
   margin-top: 1rem;
   width: 100%;
+}
+
+.tableSection {
+  display: none;
+}
+
+.tableDataNotFoundActive {
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.tableDataNotFound {
+  display: none;
+}
+
+.tableDataNotFoundActive h3 {
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 1rem;
+}
+
+.tableActive {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #3e61ac;
+  border-radius: 1rem;
 }
 
 .primaryTable {

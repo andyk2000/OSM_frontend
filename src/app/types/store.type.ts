@@ -6,6 +6,9 @@ interface StoreInfo {
   description: string;
   userId: number;
   storeUrl: string;
+  logo: string;
+  email: string;
+  phone: string;
 }
 
 interface StoreCard {
@@ -14,4 +17,13 @@ interface StoreCard {
   serviceSold: number;
 }
 
-export type { StoreInfo, StoreCard };
+interface NewStore {
+  name: string;
+  address: string;
+  description: string;
+  logo: string;
+  email: string;
+  phone: string;
+}
+
+export type { StoreInfo, StoreCard, NewStore };

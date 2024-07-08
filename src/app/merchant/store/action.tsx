@@ -11,7 +11,6 @@ const getStores = async () => {
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    // console.error("Error fetching data:", error);
     return { success: false, message: "Something went wrong" };
   }
 };
@@ -24,7 +23,6 @@ const getCardData = async (storeId: number) => {
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    // console.error("Error fetching data:", error);
     return { success: false, message: "Something went wrong", data: null };
   }
 };
@@ -37,7 +35,6 @@ const getPrimaryTableData = async (storeId: number) => {
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    // console.error("Error fetching data:", error);
     return { success: false, message: "something went wrong", data: null };
   }
 };
@@ -50,7 +47,6 @@ const getStats = async (storeId: number) => {
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    // console.error("Error fetching data:", error);
     return { success: false, message: "something went wrong", data: null };
   }
 };
@@ -69,7 +65,6 @@ const searchData = async (
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    // console.error("Error fetching data:", error);
     return { success: false, message: "something went wrong", data: null };
   }
 };
@@ -88,13 +83,16 @@ const filterData = async (
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    // console.error("Error fetching data:", error);
     return { success: false, message: "something went wrong", data: null };
   }
 };
 
 const redirectToLogin = () => {
   redirect("/login");
+};
+
+const newStore = () => {
+  redirect("/merchant/store/new");
 };
 
 export {
@@ -105,4 +103,5 @@ export {
   searchData,
   filterData,
   redirectToLogin,
+  newStore,
 };

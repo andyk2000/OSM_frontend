@@ -2,11 +2,13 @@
 
 import styles from "./page.module.css";
 import { Icon } from "@iconify/react";
+import clsx from "clsx";
 import { Suspense, useState, useEffect } from "react";
 import { CardSectionSkeleton } from "../skeleton/dashboard";
 import { getCardData, getTableData } from "./action";
 import { paidService } from "@/app/types/service.type";
 import { PaymentCard } from "@/app/types/payment.type";
+import Image from "next/image";
 
 export default function Dashboard() {
   const [cardData, setCardData] = useState<PaymentCard>({
@@ -14,18 +16,13 @@ export default function Dashboard() {
     serviceCount: 0,
     totalPayment: 0,
   });
-  const [tableData, setTableData] = useState<paidService[]>([
-    {
-      item_name: "",
-      amount: 0,
-      date: "",
-      user: {
-        names: "",
-        email: "",
-      },
-    },
-  ]);
+  const [tableData, setTableData] = useState<paidService[]>([]);
   const [loading, setLoading] = useState(true);
+  const [dataAvailable, setDataAvailable] = useState(false);
+
+  useEffect(() => {
+    setDataAvailable(tableData.length > 0);
+  }, [tableData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -105,7 +102,29 @@ export default function Dashboard() {
         <div className={styles.tableTitleContainer}>
           <h2 className={styles.tableTitle}>Latest Purchase</h2>
         </div>
-        <div className={styles.table}>
+        <div
+          className={clsx(styles.tableDataNotFoundActive, {
+            [styles.tableDataNotFound]: dataAvailable,
+          })}
+        >
+          <Image
+            src="/image/empty.png"
+            width={250}
+            height={250}
+            className={styles.logoImage}
+            alt="urubuto logo"
+          />
+          <h3>
+            There are no transactions yet,
+            <br /> Once customers start buying your services, the transactions
+            will be shown here.
+          </h3>
+        </div>
+        <div
+          className={clsx(styles.tableActive, {
+            [styles.table]: !dataAvailable,
+          })}
+        >
           <div className={styles.tableHead}>
             <div className={styles.tableHeadLeftSection}>
               <h4 className={styles.headDateTitle}>Date</h4>

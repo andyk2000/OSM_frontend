@@ -122,13 +122,35 @@
   color: rgba(0, 0, 0, 0.7);
 }
 
-.table {
+.tableDataNotFoundActive {
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.tableDataNotFound {
+  display: none;
+}
+
+.tableDataNotFoundActive h3 {
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 1rem;
+}
+
+.tableActive {
   margin-top: 1rem;
   padding: 1rem;
   border-style: solid;
   border-width: 1px;
   border-color: #3e61ac;
   border-radius: 1rem;
+}
+
+.table {
+  display: none;
 }
 
 .tableHead {
@@ -172,7 +194,7 @@
   flex-direction: row;
   justify-content: space-between;
   padding-block: 1rem;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.7);
   border-bottom-style: solid;

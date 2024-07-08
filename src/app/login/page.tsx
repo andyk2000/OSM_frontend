@@ -68,7 +68,6 @@ export default function Login() {
     } else {
       pageRedirect();
     }
-    setLoading(false);
   };
 
   return (

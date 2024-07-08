@@ -69,7 +69,7 @@ export default function SignUp() {
       title: "Good job!",
       text: "Signup successful, you are going to be redirected to the login page",
       icon: "success",
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#3E61AC",
       confirmButtonText: "Proceed!",
     }).then(() => {
       redirectLogin();
