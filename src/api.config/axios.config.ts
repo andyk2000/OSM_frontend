@@ -40,4 +40,4 @@ axiosConfig.interceptors.response.use(
   },
 );
 
-export { axiosConfig };
+export default axiosConfig;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { Icon } from "@iconify/react";
 import {
@@ -17,16 +17,265 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import clsx from "clsx";
 import { format } from "date-fns";
-import { StoreInfo, StoreCard } from "@/app/types/store.type";
+import {
+  StoreInfo,
+  StoreCard,
+  StoreTables,
+  Records,
+} from "@/app/types/store.type";
 import Image from "next/image";
+import {
+  StoreCardSkeleton,
+  StoreTableDataLoading,
+  SubHeaderSkeleton,
+} from "../skeleton/store";
 
-interface Config {
-  url: string;
+import Link from "next/link";
+
+interface storeCarddata {
+  cardData: {
+    revenue: number;
+    services: number;
+    serviceSold: number;
+  };
 }
 
-const config: Config = {
-  url: process.env.APP_URL || "http://localhost:3000",
-};
+interface storeData {
+  activeStore: {
+    id: number;
+    name: string;
+    address: string;
+    description: string;
+    userId: number;
+    storeUrl: string;
+    logo: string;
+    email: string;
+    phone: string;
+  };
+}
+
+interface TablesSection {
+  dataAvailable: boolean;
+  tableRecords: StoreTables["tableRecords"][];
+  bestProduct: StoreTables["bestProduct"][];
+  bestUser: StoreTables["bestUser"][];
+}
+
+async function CardData({ cardData }: storeCarddata) {
+  return (
+    <div className={styles.cardContainer}>
+      <div className={styles.mainCard}>
+        <div className={styles.mainCardFirstLine}>
+          <div className={styles.mainCardIconContainer}>
+            <Icon
+              icon="ph:credit-card-light"
+              style={{ color: "#3E61AC" }}
+              fontSize={30}
+            />
+          </div>
+          <h4 className={styles.mainCardtitle}>Revenue</h4>
+        </div>
+        <div className={styles.mainCardLastLine}>
+          <h3 className={styles.mainCardValue}>
+            {cardData.revenue ? cardData.revenue : 0}
+          </h3>
+        </div>
+      </div>
+      <div className={styles.card}>
+        <div className={styles.cardFirstLine}>
+          <div className={styles.iconContainer}>
+            <Icon
+              icon="ph:hand-arrow-up-thin"
+              style={{ color: "#3E61AC" }}
+              fontSize={30}
+            />
+          </div>
+          <h4 className={styles.cardtitle}>All Services</h4>
+        </div>
+        <div className={styles.cardLastLine}>
+          <h3 className={styles.cardValue}>{cardData.services}</h3>
+        </div>
+      </div>
+      <div className={styles.card}>
+        <div className={styles.cardFirstLine}>
+          <div className={styles.iconContainer}>
+            <Icon
+              icon="ph:hand-arrow-up-thin"
+              style={{ color: "#3E61AC" }}
+              fontSize={30}
+            />
+          </div>
+          <h4 className={styles.cardtitle}>Services Sold</h4>
+        </div>
+        <div className={styles.cardLastLine}>
+          <h3 className={styles.cardValue}>{cardData.serviceSold}</h3>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+async function SubHeader({ activeStore }: storeData) {
+  return (
+    <div className={styles.subHeader}>
+      <div className={styles.locationSection}>
+        <Icon
+          icon="ph:map-pin-simple-fill"
+          style={{ color: "rgba(62, 97, 172, 0.8)" }}
+          height={40}
+          width={20}
+        />
+        <p className={styles.locationText}>{activeStore?.address || "N/A"}</p>
+      </div>
+      <p>|</p>
+      <div className={styles.storeURLSection}>
+        <Icon
+          icon="ph:link"
+          style={{ color: "rgba(62, 97, 172)" }}
+          height={40}
+          width={20}
+        />
+        <Link
+          href={activeStore?.storeUrl || "N/A"}
+          className={styles.storeURLText}
+        >
+          {activeStore?.storeUrl || "N/A"}
+        </Link>
+      </div>
+      <p>|</p>
+      <div className={styles.editStoreSection}>
+        <button className={styles.editButton}>
+          <Icon
+            icon="ph:pencil-simple-fill"
+            style={{ color: "rgba(62, 97, 172)" }}
+            height={40}
+            width={20}
+          />
+        </button>
+      </div>
+      <p>|</p>
+      <div className={styles.viewStore}>
+        <div className={styles.viewSection}>
+          <p>view</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+async function StoreTable({
+  dataAvailable,
+  tableRecords,
+  bestProduct,
+  bestUser,
+}: TablesSection) {
+  return (
+    <>
+      <div
+        className={clsx(styles.tableDataNotFoundActive, {
+          [styles.tableDataNotFound]: dataAvailable,
+        })}
+      >
+        <Image
+          src="/image/empty.png"
+          width={250}
+          height={250}
+          className={styles.logoImage}
+          alt="urubuto logo"
+        />
+        <h3>
+          <span>There are no transactions yet</span>
+          <br /> Once customers start buying your services, the transactions
+          will be shown here.
+        </h3>
+      </div>
+      <div
+        className={clsx(styles.tableSectionActive, {
+          [styles.tableSection]: !dataAvailable,
+        })}
+      >
+        <div className={styles.primaryTable}>
+          <div className={styles.table}>
+            <div className={styles.tableHead}>
+              <div className={styles.tableHeadLeftSection}>
+                <h4 className={styles.headDateTitle}>Date</h4>
+                <h4 className={styles.headCustomerTitle}>Customer</h4>
+              </div>
+              <div className={styles.tableHeadRightSection}>
+                <h4 className={styles.headItemTitle}>Item</h4>
+                <h4 className={styles.headTitle}>Amount</h4>
+              </div>
+            </div>
+            <div className={styles.tableBody}>
+              {tableRecords.map((record: Records, index: number) => (
+                <div key={index} className={styles.tableRow}>
+                  <div className={styles.dataLeftSection}>
+                    <p className={styles.tableDateCell}>
+                      {record.date.substring(0, 10)}
+                    </p>
+                    <p className={styles.tableCustomerCell}>
+                      {record.user.names}
+                    </p>
+                  </div>
+                  <div className={styles.dataRightSection}>
+                    <p className={styles.tableItemCell}>{record.item_name}</p>
+                    <p className={styles.tableCell}>{record.amount}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className={styles.sideTables}>
+          <div className={styles.table}>
+            <div className={styles.sideTableHead}>
+              <p className={styles.tableTitle}>Popular Services</p>
+              <Icon
+                icon="ph:caret-down-bold"
+                style={{ color: "rgb(62, 97, 172)" }}
+                height={20}
+                width={20}
+              />
+            </div>
+            {bestProduct.map(
+              (
+                service: { name: string; recurrence: number },
+                index: number,
+              ) => (
+                <div key={index} className={styles.sideTableRow}>
+                  <p className={styles.rowName}>{service.name}</p>
+                  <p className={styles.rowValue}>{service.recurrence}</p>
+                </div>
+              ),
+            )}
+          </div>
+          <div className={styles.table}>
+            <div className={styles.sideTableHead}>
+              <p className={styles.tableTitle}>Best Customer</p>
+              <Icon
+                icon="ph:caret-down-bold"
+                style={{ color: "rgb(62, 97, 172)" }}
+                height={20}
+                width={20}
+              />
+            </div>
+            {bestUser.map(
+              (
+                customer: { recurrence: number; name: string },
+                index: number,
+              ) => (
+                <div key={index} className={styles.sideTableRow}>
+                  <p className={styles.rowName}>{customer.name}</p>
+                  <p className={styles.rowValue}>{customer.recurrence}</p>
+                </div>
+              ),
+            )}
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default function Store() {
   const [stores, setStores] = useState<StoreInfo[]>([
@@ -42,7 +291,17 @@ export default function Store() {
       logo: "",
     },
   ]);
-  const [activeStore, setActiveStore] = useState<StoreInfo | null>(null);
+  const [activeStore, setActiveStore] = useState<StoreInfo>({
+    address: "",
+    name: "",
+    description: "",
+    id: 0,
+    logo: "",
+    email: "",
+    userId: 0,
+    phone: "",
+    storeUrl: "",
+  });
   const [cardData, setCardData] = useState<StoreCard>({
     revenue: 0,
     services: 0,
@@ -59,6 +318,7 @@ export default function Store() {
 
   const [bestProduct, setBestProduct] = useState([
     {
+      id: 0,
       name: "",
       recurrence: 0,
     },
@@ -136,9 +396,10 @@ export default function Store() {
 
   const handleStoreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedStoreId = parseInt(event.target.value, 10);
-    const selectedStore =
-      stores.find((store) => store.id === selectedStoreId) || null;
-    setActiveStore(selectedStore);
+    const selectedStore = stores.find((store) => store.id === selectedStoreId);
+    if (selectedStore) {
+      setActiveStore(selectedStore);
+    }
   };
 
   const [activeCategory, setActiveCategory] = useState("customer");
@@ -244,88 +505,12 @@ export default function Store() {
           </button>
         </div>
       </div>
-      <div className={styles.subHeader}>
-        <div className={styles.locationSection}>
-          <Icon
-            icon="ph:map-pin-simple-fill"
-            style={{ color: "rgba(62, 97, 172, 0.8)" }}
-            height={40}
-            width={20}
-          />
-          <p className={styles.locationText}>{activeStore?.address || "N/A"}</p>
-        </div>
-        <div className={styles.storeURLSection}>
-          <Icon
-            icon="ph:link"
-            style={{ color: "rgba(62, 97, 172)" }}
-            height={40}
-            width={20}
-          />
-          <p className={styles.storeURLText}>
-            {config.url + "/" + (activeStore?.storeUrl || "N/A")}
-          </p>
-        </div>
-        <div className={styles.editStoreSection}>
-          <Icon
-            icon="ph:pencil-simple-fill"
-            style={{ color: "rgba(62, 97, 172)" }}
-            height={40}
-            width={20}
-          />
-        </div>
-        <div className={styles.viewStore}>
-          <div className={styles.viewSection}>
-            <p>view</p>
-          </div>
-        </div>
-      </div>
-      <div className={styles.cardContainer}>
-        <div className={styles.mainCard}>
-          <div className={styles.mainCardFirstLine}>
-            <div className={styles.mainCardIconContainer}>
-              <Icon
-                icon="ph:credit-card-light"
-                style={{ color: "#3E61AC" }}
-                fontSize={30}
-              />
-            </div>
-            <h4 className={styles.mainCardtitle}>Revenue</h4>
-          </div>
-          <div className={styles.mainCardLastLine}>
-            <h3 className={styles.mainCardValue}>{cardData.revenue}</h3>
-          </div>
-        </div>
-        <div className={styles.card}>
-          <div className={styles.cardFirstLine}>
-            <div className={styles.iconContainer}>
-              <Icon
-                icon="ph:hand-arrow-up-thin"
-                style={{ color: "#3E61AC" }}
-                fontSize={30}
-              />
-            </div>
-            <h4 className={styles.cardtitle}>All Services</h4>
-          </div>
-          <div className={styles.cardLastLine}>
-            <h3 className={styles.cardValue}>{cardData.services}</h3>
-          </div>
-        </div>
-        <div className={styles.card}>
-          <div className={styles.cardFirstLine}>
-            <div className={styles.iconContainer}>
-              <Icon
-                icon="ph:hand-arrow-up-thin"
-                style={{ color: "#3E61AC" }}
-                fontSize={30}
-              />
-            </div>
-            <h4 className={styles.cardtitle}>Services Sold</h4>
-          </div>
-          <div className={styles.cardLastLine}>
-            <h3 className={styles.cardValue}>{cardData.serviceSold}</h3>
-          </div>
-        </div>
-      </div>
+      <Suspense fallback={<SubHeaderSkeleton />}>
+        <SubHeader activeStore={activeStore} />
+      </Suspense>
+      <Suspense fallback={<StoreCardSkeleton />}>
+        <CardData cardData={cardData} />
+      </Suspense>
       <div className={styles.serviceNav}>
         <div className={styles.searchFilter}>
           <div className={styles.searchBar}>
@@ -405,98 +590,14 @@ export default function Store() {
           </button>
         </div>
       </div>
-      <div
-        className={clsx(styles.tableDataNotFoundActive, {
-          [styles.tableDataNotFound]: dataAvailable,
-        })}
-      >
-        <Image
-          src="/image/empty.png"
-          width={250}
-          height={250}
-          className={styles.logoImage}
-          alt="urubuto logo"
+      <Suspense fallback={<StoreTableDataLoading />}>
+        <StoreTable
+          tableRecords={tableRecords}
+          bestProduct={bestProduct}
+          bestUser={bestUser}
+          dataAvailable={dataAvailable}
         />
-        <h3>
-          There are no transactions yet,
-          <br /> Once customers start buying your services, the transactions
-          will be shown here.
-        </h3>
-      </div>
-      <div
-        className={clsx(styles.tableSectionActive, {
-          [styles.tableSection]: !dataAvailable,
-        })}
-      >
-        <div className={styles.primaryTable}>
-          <div className={styles.table}>
-            <div className={styles.tableHead}>
-              <div className={styles.tableHeadLeftSection}>
-                <h4 className={styles.headDateTitle}>Date</h4>
-                <h4 className={styles.headCustomerTitle}>Customer</h4>
-              </div>
-              <div className={styles.tableHeadRightSection}>
-                <h4 className={styles.headItemTitle}>Item</h4>
-                <h4 className={styles.headTitle}>Amount</h4>
-              </div>
-            </div>
-            <div className={styles.tableBody}>
-              {tableRecords.map((record, index) => (
-                <div key={index} className={styles.tableRow}>
-                  <div className={styles.dataLeftSection}>
-                    <p className={styles.tableDateCell}>
-                      {record.date.substring(0, 10)}
-                    </p>
-                    <p className={styles.tableCustomerCell}>
-                      {record.user.names}
-                    </p>
-                  </div>
-                  <div className={styles.dataRightSection}>
-                    <p className={styles.tableItemCell}>{record.item_name}</p>
-                    <p className={styles.tableCell}>{record.amount}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className={styles.sideTables}>
-          <div className={styles.table}>
-            <div className={styles.sideTableHead}>
-              <p className={styles.tableTitle}>Popular Services</p>
-              <Icon
-                icon="ph:caret-down-bold"
-                style={{ color: "rgb(62, 97, 172)" }}
-                height={20}
-                width={20}
-              />
-            </div>
-            {bestProduct.map((service, index) => (
-              <div key={index} className={styles.sideTableRow}>
-                <p className={styles.rowName}>{service.name}</p>
-                <p className={styles.rowValue}>{service.recurrence}</p>
-              </div>
-            ))}
-          </div>
-          <div className={styles.table}>
-            <div className={styles.sideTableHead}>
-              <p className={styles.tableTitle}>Best Customer</p>
-              <Icon
-                icon="ph:caret-down-bold"
-                style={{ color: "rgb(62, 97, 172)" }}
-                height={20}
-                width={20}
-              />
-            </div>
-            {bestUser.map((customer, index) => (
-              <div key={index} className={styles.sideTableRow}>
-                <p className={styles.rowName}>{customer.name}</p>
-                <p className={styles.rowValue}>{customer.recurrence}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      </Suspense>
     </div>
   );
 }

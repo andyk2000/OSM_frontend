@@ -1,6 +1,5 @@
 .cardContainer {
     width: 100%;
-    padding-inline: 1.5rem;
     margin-top: 1rem;
     display: flex;
     flex-direction: row;
@@ -98,4 +97,29 @@
     text-align: right;
     font-size: 1.5rem;
     color: #3e61ac;
+  }
+
+  .tableContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 5rem;
+  }
+
+  .spinner {
+    animation: rotate 2s linear infinite;
+  }
+  
+  .rotating {
+    display: inline-block;
+    animation: rotate 2s linear infinite;
+  }
+  
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }

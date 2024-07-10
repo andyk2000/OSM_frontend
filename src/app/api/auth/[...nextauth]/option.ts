@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import CredentialsProvider from "next-auth/providers/credentials";
-import { axiosConfig } from "@/api.config/axios.config";
+import axiosConfig from "@/api.config/axios.config";
 import type { NextAuthOptions } from "next-auth";
 import { cookies } from "next/headers";
 
