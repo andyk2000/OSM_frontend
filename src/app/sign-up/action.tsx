@@ -1,5 +1,5 @@
 "use server";
-import { axiosConfig } from "@/api.config/axios.config";
+import axiosConfig from "@/api.config/axios.config";
 import { redirect } from "next/navigation";
 
 // eslint-disable-next-line react-hooks/rules-of-hooks
