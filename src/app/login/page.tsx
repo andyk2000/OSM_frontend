@@ -65,6 +65,7 @@ export default function Login() {
         text: "check your email and password again.",
         icon: "error",
       });
+      setLoading(false);
     } else {
       pageRedirect();
     }

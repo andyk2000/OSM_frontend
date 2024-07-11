@@ -38,6 +38,7 @@ export default function New() {
 
   const handleImageChange = (event: {
     target?: { dispatchEvent: (arg0: Event) => void };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     currentTarget?: any;
   }) => {
     const file = event.currentTarget.files[0];

@@ -6,23 +6,13 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
-import { axiosConfig } from "@/api.config/axios.config";
+import { getMerchantData } from "./action";
 
 const pagePaths = {
   dashboard: "/merchant/dashboard",
   store: "/merchant/store",
   service: "/merchant/service",
   login: "/login",
-};
-
-const getMerchantData = async () => {
-  try {
-    const response = await axiosConfig.get("/user/getUserData/merchant");
-    return { success: true, data: response.data };
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return { success: false, message: "Something went wrong", data: null };
-  }
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -34,7 +24,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchMerchantData = async () => {
       const result = await getMerchantData();
-      console.log(result);
       if (result.success && result.data) {
         setEmail(result.data.email);
         setNames(result.data.names);

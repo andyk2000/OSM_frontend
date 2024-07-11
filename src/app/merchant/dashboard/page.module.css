@@ -14,7 +14,6 @@
 
 .cardContainer {
   width: 100%;
-  padding-inline: 1.5rem;
   margin-top: 1rem;
   display: flex;
   flex-direction: row;
@@ -136,8 +135,14 @@
 }
 
 .tableDataNotFoundActive h3 {
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 0.9rem;
   margin-top: 1rem;
+}
+
+.tableDataNotFoundActive h3 span {
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .tableActive {

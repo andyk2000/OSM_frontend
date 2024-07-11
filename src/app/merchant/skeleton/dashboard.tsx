@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./card.page.module.css";
 import { Icon } from "@iconify/react";
 
@@ -50,6 +52,22 @@ export function CardSectionSkeleton() {
             <h3 className={styles.cardValue}>waiting...</h3>
           </div>
         </div>
+      </div>
+    </>
+  );
+}
+
+export function TableLoading() {
+  return (
+    <>
+      <div className={styles.tableContainer}>
+        <Icon
+          icon="ph:spinner-gap-light"
+          style={{ color: "rgba(0,0,0,0.8)" }}
+          height={75}
+          width={75}
+          className={styles.spinner}
+        />
       </div>
     </>
   );

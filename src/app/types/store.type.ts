@@ -26,4 +26,41 @@ interface NewStore {
   phone: string;
 }
 
-export type { StoreInfo, StoreCard, NewStore };
+interface StoreTables {
+  dataAvailable: boolean;
+  tableRecords:{
+      id: number;
+      item_name: string;
+      amount: number;
+      userId: number;
+      date: string;
+      user: {
+        names: string;
+        email: string;
+      };
+    },
+  bestProduct:
+    {
+      id: number;
+      name: string;
+      recurrence: number;
+    }
+  bestUser: {
+      id: number;
+      name: string;
+      recurrence: number;
+    }
+}
+
+interface Records {
+  id: number;
+  item_name: string;
+  amount: number;
+  userId: number;
+  date: string;
+  user: {
+    names: string;
+    email: string;
+  };
+}
+export type { StoreInfo, StoreCard, NewStore, StoreTables, Records };

@@ -1,6 +1,6 @@
 "use server";
 
-import { axiosConfig } from "@/api.config/axios.config";
+import axiosConfig from "@/api.config/axios.config";
 import { unstable_noStore as noStore } from "next/cache";
 import { redirect } from "next/navigation";
 import { StoreInfo } from "@/app/types/store.type";
