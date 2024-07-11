@@ -1,6 +1,6 @@
 "use server";
 
-import { axiosConfig } from "@/api.config/axios.config";
+import axiosConfig from "@/api.config/axios.config";
 import { redirect } from "next/navigation";
 
 interface User {
