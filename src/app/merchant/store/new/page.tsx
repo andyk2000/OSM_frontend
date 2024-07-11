@@ -78,7 +78,7 @@ export default function New() {
       title: "Good job!",
       text: "Store Created successfuly",
       icon: "success",
-      confirmButtonColor: "#3E61AC",
+      confirmButtonColor: "#3e61ac",
       confirmButtonText: "Proceed!",
     }).then(() => {
       navigateStorePage();
