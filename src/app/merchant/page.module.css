@@ -13,46 +13,61 @@
 .sideBar {
   width: var(--sidebar-width);
   max-width: 17rem;
-  padding-inline: 4rem;
+  padding-inline: 2rem;
   padding-top: 2rem;
   display: flex;
   height: 100vh;
   position: fixed;
   flex-direction: column;
   align-items: center;
-  border-right-style: solid;
-  border-right-width: 1px;
-  border-right-color: rgba(62, 97, 172, 0.2);
+  border-right: 1px solid rgba(62, 97, 172, 0.2);
+  justify-content: space-between;
+}
+
+.upperDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .userNames {
+  width: 100%;
+  text-align: center;
   padding-top: 0.5rem;
   font-size: 1.2rem;
   font-weight: 700;
   text-overflow: ellipsis;
-}
-
-.email {
-  font-size: 0.8rem;
-  color: #8a8a8a;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.tabsContainer {
-  height: 100%;
-  margin-top: 2rem;
+.email {
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #8a8a8a;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logoutTabContainer {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-bottom: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  padding-left: 1.5rem;
 }
 
 .tabContainer {
-  width: 7rem;
+  width: 100%;
   display: flex;
-  justify-content: left;
   align-items: center;
   cursor: pointer;
+  padding-left: 1.5rem;
   padding-block: 1rem;
 }
 
@@ -67,5 +82,5 @@
 
 .children {
   width: 100%;
-  margin-left: calc(var(--sidebar-width));
+  margin-left: var(--sidebar-width);
 }
