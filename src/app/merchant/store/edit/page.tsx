@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { Icon } from "@iconify/react";
 import * as Yup from "yup";
@@ -8,21 +8,31 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Image from "next/image";
 import clsx from "clsx";
 import { NewStore } from "@/app/types/store.type";
-import { createStore, navigateStorePage } from "./action";
+import {
+  deleteStore,
+  getStores,
+  navigateStorePage,
+  updateStore,
+} from "./action";
 import Swal from "sweetalert2";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
-export default function New() {
-  const store = {
+export default function Edit() {
+  const [store, setStore] = useState({
     name: "",
     address: "",
     description: "",
     email: "",
     phone: "",
     logo: "",
-  };
+  });
 
   const [preview, setPreview] = useState<string>("");
   const [logoFile, setLogoFile] = useState("");
+  const [storeLink, setStoreLink] = useState("");
+  const [storeName, setStoreName] = useState("");
+  const [imageChange, setImageChange] = useState(false);
 
   const validationSchema = Yup.object({
     name: Yup.string().required("* name is required"),
@@ -36,17 +46,15 @@ export default function New() {
     ),
   });
 
-  const handleImageChange = (event: {
-    target?: { dispatchEvent: (arg0: Event) => void };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    currentTarget?: any;
-  }) => {
+  const handleImageChange = (event: { currentTarget: HTMLInputElement }) => {
     const file = event.currentTarget.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setLogoFile(reader.result as string);
         setPreview(reader.result as string);
+        setImageChange(true);
+        console.log(preview);
       };
       reader.readAsDataURL(file);
     } else {
@@ -56,27 +64,57 @@ export default function New() {
   };
 
   const submitStore = async (values: NewStore) => {
-    const updatedStore = {
+    const updatedStoreData = {
       ...values,
       logo: logoFile,
     };
     try {
-      const createdStore = await createStore(updatedStore);
-      console.log(createdStore.success);
-      if (createdStore.success === true) {
-        successCreation();
+      const id = parseInt(searchParams.get("id") || "");
+      const updatedStore = await updateStore(id, updatedStoreData, imageChange);
+      if (updatedStore.success === true) {
+        successUpdate();
       } else {
-        failedCreation();
+        failedUpdate();
       }
     } catch (error) {
       console.log(error);
+      throw error;
     }
   };
 
-  const successCreation = () => {
+  const handleDelete = async () => {
+    const id = parseInt(searchParams.get("id") || "");
     Swal.fire({
-      title: "Good job!",
-      text: "Store Created successfuly",
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "rgba(62, 97, 172)",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (result.isConfirmed) {
+          try {
+            const storeDeleted = await deleteStore(id);
+            if (storeDeleted.success === true) {
+              successDelete();
+            } else {
+              failedDelete();
+            }
+          } catch (error) {
+            console.log(error);
+            throw error;
+          }
+        }
+      }
+    });
+  };
+
+  const successDelete = () => {
+    Swal.fire({
+      title: "Delete Successful",
+      text: "Store has been deleted Successfully",
       icon: "success",
       confirmButtonColor: "#3e61ac",
       confirmButtonText: "Proceed!",
@@ -85,17 +123,71 @@ export default function New() {
     });
   };
 
-  const failedCreation = () => {
+  const failedDelete = () => {
     Swal.fire({
       icon: "error",
-      title: "Signup failed",
-      text: "try again and make sure all the fields are field properly",
+      title: "Delete Failed",
+      text: "Something went wrong with the system, the store couldn't be deleted",
+    });
+  };
+
+  const successUpdate = () => {
+    Swal.fire({
+      title: "Good job!",
+      text: "Store Updated Successfully",
+      icon: "success",
+      confirmButtonColor: "#3e61ac",
+      confirmButtonText: "Proceed!",
+    }).then(() => {
+      navigateStorePage();
+    });
+  };
+
+  const failedUpdate = () => {
+    Swal.fire({
+      icon: "error",
+      title: "Update Failed",
+      text: "Try again and make sure all the fields are filled properly",
     });
   };
 
   const goBack = () => {
     navigateStorePage();
   };
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const initialData = async () => {
+      const idString = searchParams.get("id");
+      if (idString) {
+        const id = parseInt(idString);
+        const results = await getStores(id);
+        if (results.data && results.success) {
+          setStore({
+            name: results.data.name,
+            email: results.data.email,
+            phone: results.data.phone,
+            description: results.data.description,
+            address: results.data.address,
+            logo: "",
+          });
+          if (typeof results.data?.storeUrl === "string") {
+            setStoreLink(results.data.storeUrl);
+          }
+          if (typeof results.data?.name === "string") {
+            setStoreName(results.data.name);
+          }
+          if (typeof results.data?.logo === "string") {
+            setPreview(results.data.logo);
+          }
+        }
+      } else {
+        console.log("There was a problem retrieving the data.");
+      }
+    };
+    initialData();
+  }, [searchParams]);
 
   return (
     <div className={styles.pageContainer}>
@@ -108,7 +200,7 @@ export default function New() {
             width={30}
           />
         </button>
-        <h2 className={styles.pageTitle}>Create New Store</h2>
+        <h2 className={styles.pageTitle}>{storeName}</h2>
         <Icon
           icon="ph:dots-three-outline-vertical-fill"
           style={{ color: "rgba(62, 97, 172, 0.7)" }}
@@ -119,6 +211,7 @@ export default function New() {
       <Formik
         initialValues={store}
         validationSchema={validationSchema}
+        enableReinitialize={true}
         onSubmit={submitStore}
       >
         {() => (
@@ -154,9 +247,7 @@ export default function New() {
                 id="logo"
                 name="logo"
                 type="file"
-                onChange={(event: {
-                  target: { dispatchEvent: (arg0: Event) => void };
-                }) => {
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   handleImageChange(event);
                   event.target.dispatchEvent(
                     new Event("input", { bubbles: true }),
@@ -164,6 +255,18 @@ export default function New() {
                 }}
                 className={styles.imageInput}
               />
+            </div>
+            <div className={styles.linkSpace}>
+              <p>Store Url:</p>
+              <Icon
+                icon="ph:link"
+                style={{ color: "rgba(62, 97, 172)" }}
+                height={40}
+                width={20}
+              />
+              <Link href={storeLink} className={styles.storeURLText}>
+                {storeLink}
+              </Link>
             </div>
             <div className={styles.dualFieldSpace}>
               <div>
@@ -182,7 +285,7 @@ export default function New() {
                   type="text"
                   id="name"
                   name="name"
-                  placeholder="name"
+                  placeholder="Store Name"
                   className={styles.fieldInput}
                 />
                 <ErrorMessage
@@ -289,13 +392,14 @@ export default function New() {
                 Publish
               </button>
               <button type="button" className={styles.saveButton}>
-                Save
+                Revert Changes
               </button>
-              <button type="button" className={styles.saveButton}>
-                Save as Draft
-              </button>
-              <button type="button" className={styles.deleteButton}>
-                Clear
+              <button
+                type="button"
+                className={styles.deleteButton}
+                onClick={handleDelete}
+              >
+                Delete
               </button>
             </div>
           </Form>

@@ -12,6 +12,7 @@ import {
   filterData,
   redirectToLogin,
   newStore,
+  deleteStore,
 } from "./action";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -31,6 +32,8 @@ import {
 } from "../skeleton/store";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 interface storeCarddata {
   cardData: {
@@ -116,6 +119,58 @@ async function CardData({ cardData }: storeCarddata) {
 }
 
 async function SubHeader({ activeStore }: storeData) {
+  const router = useRouter();
+
+  const editStore = () => {
+    router.push(`/merchant/store/edit?id=${activeStore.id}`);
+  };
+
+  const handleDelete = async () => {
+    const id = activeStore.id;
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "rgba(62, 97, 172)",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (result.isConfirmed) {
+          try {
+            const storeDeleted = await deleteStore(id);
+            if (storeDeleted.success === true) {
+              successDelete();
+            } else {
+              failedDelete();
+            }
+          } catch (error) {
+            console.log(error);
+            throw error;
+          }
+        }
+      }
+    });
+  };
+
+  const successDelete = () => {
+    Swal.fire({
+      title: "Delete Successful",
+      text: "Store has been deleted Successfully",
+      icon: "success",
+      confirmButtonColor: "#3e61ac",
+      confirmButtonText: "Proceed!",
+    });
+  };
+
+  const failedDelete = () => {
+    Swal.fire({
+      icon: "error",
+      title: "Delete Failed",
+      text: "Something went wrong with the system, the store couldn't be deleted",
+    });
+  };
   return (
     <div className={styles.subHeader}>
       <div className={styles.locationSection}>
@@ -144,7 +199,18 @@ async function SubHeader({ activeStore }: storeData) {
       </div>
       <p>|</p>
       <div className={styles.editStoreSection}>
-        <button className={styles.editButton}>
+        <button className={styles.editButton} onClick={handleDelete}>
+          <Icon
+            icon="ph:trash"
+            height={25}
+            width={25}
+            className={styles.deleteIcon}
+          />
+        </button>
+      </div>
+      <p>|</p>
+      <div className={styles.editStoreSection}>
+        <button className={styles.editButton} onClick={editStore}>
           <Icon
             icon="ph:pencil-simple-fill"
             style={{ color: "rgba(62, 97, 172)" }}
