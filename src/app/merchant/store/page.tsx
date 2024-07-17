@@ -440,6 +440,7 @@ export default function Store() {
           const data = await getCardData(activeStore.id);
           const tableData = await getPrimaryTableData(activeStore.id);
           const stats = await getStats(activeStore.id);
+          console.log(data, tableData, stats);
           setCardData(data.data);
           setTableRecords(tableData.data);
           setBestUser(stats.data.users);
