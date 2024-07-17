@@ -1,26 +1,244 @@
-.photoInput {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.photoFrameActive {
-  height: fit-content;
-  width: fit-content;
-  display: flex;
-  margin-bottom: 1.5rem;
-  background: rgba(62, 97, 172, 0.2);
-  padding: 1.5rem;
-  border-radius: 3rem;
-  justify-content: center;
-  align-items: center;
-}
-
-.photoFrame {
-  display: none;
-}
-
-.storeLogoActive {
-  border-radius: 3rem;
-}
+.pageContainer {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .header {
+    padding-inline: 0.5rem;
+    padding-block: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  .backButton {
+    background: transparent;
+    border-style: none;
+    cursor: pointer;
+  }
+  
+  .pageTitle {
+    color: rgba(62, 97, 172, 0.7);
+  }
+  
+  .storeForm {
+    margin-top: 3rem;
+    margin-inline: 5rem;
+  }
+  
+  .photoInput {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .photoFrameActive {
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    margin-bottom: 1.5rem;
+    background: rgba(62, 97, 172, 0.2);
+    padding: 1.5rem;
+    border-radius: 3rem;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .photoFrame {
+    display: none;
+  }
+  
+  .storeLogoActive {
+    border-radius: 3rem;
+  }
+  
+  .imageInput {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    height: 4rem;
+    width: 4rem;
+  }
+  
+  .linkSpace {
+    display: flex;
+    align-items: center;
+  }
+  
+  .linkSpace p {
+    margin-right: 2rem
+  }
+  
+  .storeURLText {
+    color:rgb(62, 97, 172);
+  }
+  
+  .storeURLText:hover {
+    text-decoration: underline;
+  }
+  
+  .dualFieldSpace {
+    width: 100%;
+    display: flex;
+    margin-top: 1rem;
+    justify-content: space-between;
+  }
+  
+  .dualFieldSpace div {
+    margin-right: 6.3rem;
+  }
+  
+  .fieldLabel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .fieldLabel p {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 0.2rem;
+  }
+  
+  .fieldLabel p span {
+    color: red;
+  }
+  
+  .fieldInput {
+    background: white;
+    color: rgba(0, 0, 0, 0.8);
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(62, 97, 172);
+    border-radius: 0.25rem;
+    width: 22rem;
+    padding-inline: 0.5rem;
+    padding-block: 0.45rem;
+    font-size: 0.9rem;
+  }
+  
+  .errorMessage {
+    color: rgb(255, 0, 0, 0.8);
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+  }
+  
+  .descriptionContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+  
+  .descriptionContainer p {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 0.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .textarea {
+    width: 100%;
+    background: white;
+    border-radius: 0.25rem;
+    border-color: rgb(62, 97, 172);
+    padding-block: 1rem;
+    padding-inline: 0.75rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  
+  .buttonsField {
+    margin-block: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .publishButton {
+    font-size: 1rem;
+    font-weight: 700;
+    background: rgb(62, 97, 172);
+    width: 10rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(62, 97, 172);
+    border-radius: 0.25rem;
+    padding-block: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .publishButton:hover {
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgb(62, 97, 172);
+    background: transparent;
+    width: 10rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(62, 97, 172);
+    border-radius: 0.25rem;
+    padding-block: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .saveButton {
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgb(62, 97, 172);
+    background: transparent;
+    width: 10rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(62, 97, 172);
+    border-radius: 0.25rem;
+    padding-block: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .saveButton:hover {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    background: rgb(62, 97, 172);
+    width: 10rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(62, 97, 172);
+    border-radius: 0.25rem;
+    padding-block: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .deleteButton {
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgb(200, 0, 0);
+    background: transparent;
+    width: 10rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(200, 0, 0);
+    border-radius: 0.25rem;
+    padding-block: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .deleteButton:hover {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    background: rgb(200, 0, 0);
+    width: 10rem;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(200, 0, 0);
+    border-radius: 0.25rem;
+    padding-block: 0.5rem;
+  }
+  
