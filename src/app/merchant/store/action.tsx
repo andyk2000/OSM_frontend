@@ -87,6 +87,17 @@ const filterData = async (
   }
 };
 
+const deleteStore = async (id: number) => {
+  try {
+    const response = await axiosConfig.delete(`/store/${id}`);
+    console.log(response);
+    return { success: true, data: response.data };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: "Something went wrong" };
+  }
+};
+
 const redirectToLogin = () => {
   redirect("/login");
 };
@@ -104,4 +115,5 @@ export {
   filterData,
   redirectToLogin,
   newStore,
+  deleteStore,
 };

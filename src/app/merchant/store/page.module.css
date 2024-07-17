@@ -63,7 +63,7 @@
 }
 
 .subHeader p {
-  color:rgb(62, 97, 172);
+  color: rgb(62, 97, 172);
 }
 
 .locationSection {
@@ -75,6 +75,10 @@
 .storeURLText {
   color: rgba(62, 97, 172);
   padding-left: 1rem;
+}
+
+.storeURLText:hover {
+  text-decoration: underline;
 }
 
 .storeURLSection {
@@ -516,4 +520,8 @@
   background: transparent;
   border-style: none;
   cursor: pointer;
+}
+
+.deleteIcon {
+  color: rgb(255, 0, 0);
 }

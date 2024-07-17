@@ -26,6 +26,15 @@ interface NewStore {
   phone: string;
 }
 
+interface StoreUpdate {
+  address: string;
+  logo: string;
+  email: string;
+  phone: string;
+  name: string;
+  description: string;
+}
+
 interface StoreTables {
   dataAvailable: boolean;
   tableRecords:{
@@ -63,4 +72,5 @@ interface Records {
     email: string;
   };
 }
-export type { StoreInfo, StoreCard, NewStore, StoreTables, Records };
+
+export type { StoreInfo, StoreCard, NewStore, StoreTables, Records, StoreUpdate };
