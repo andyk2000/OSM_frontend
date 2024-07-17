@@ -201,7 +201,7 @@
 .deleteButton {
   font-size: 1rem;
   font-weight: 700;
-  color:  rgb(62, 97, 172);
+  color: rgb(62, 97, 172);
   background: transparent;
   width: 10rem;
   border-style: solid;
@@ -224,4 +224,30 @@
   border-color: rgb(62, 97, 172);
   border-radius: 0.25rem;
   padding-block: 0.5rem;
+}
+
+.publishText {
+  display: none;
+}
+
+.publishTextActive {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.spinner {
+  display: none;
+}
+
+.spinnerActive {
+  display: auto;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

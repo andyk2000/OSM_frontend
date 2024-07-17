@@ -23,6 +23,7 @@ export default function New() {
 
   const [preview, setPreview] = useState<string>("");
   const [logoFile, setLogoFile] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object({
     name: Yup.string().required("* name is required"),
@@ -56,6 +57,7 @@ export default function New() {
   };
 
   const submitStore = async (values: NewStore) => {
+    setLoading(true);
     const updatedStore = {
       ...values,
       logo: logoFile,
@@ -64,8 +66,10 @@ export default function New() {
       const createdStore = await createStore(updatedStore);
       console.log(createdStore.success);
       if (createdStore.success === true) {
+        setLoading(false);
         successCreation();
       } else {
+        setLoading(false);
         failedCreation();
       }
     } catch (error) {
@@ -285,10 +289,29 @@ export default function New() {
               />
             </div>
             <div className={styles.buttonsField}>
-              <button type="submit" className={styles.publishButton}>
-                Publish
+              <button
+                type="submit"
+                className={styles.publishButton}
+                disabled={loading}
+              >
+                <text
+                  className={clsx(styles.publishTextActive, {
+                    [styles.publishtext]: loading === false,
+                  })}
+                >
+                  Publish
+                </text>
+                <Icon
+                  icon="ph:spinner-gap"
+                  style={{ color: "rgb(62, 97, 172)" }}
+                  height={25}
+                  width={25}
+                  className={clsx(styles.spinner, {
+                    [styles.spinnerActive]: loading === true,
+                  })}
+                />
               </button>
-              <button type="button" className={styles.deleteButton}>
+              <button type="reset" className={styles.deleteButton}>
                 Clear
               </button>
             </div>
