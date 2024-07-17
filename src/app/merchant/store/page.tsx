@@ -80,7 +80,7 @@ function CardData({ cardData }: storeCarddata) {
         </div>
         <div className={styles.mainCardLastLine}>
           <h3 className={styles.mainCardValue}>
-            {cardData.revenue ? cardData.revenue : 0}
+            {cardData?.revenue ? cardData.revenue : 0}
           </h3>
         </div>
       </div>
@@ -96,7 +96,9 @@ function CardData({ cardData }: storeCarddata) {
           <h4 className={styles.cardtitle}>All Services</h4>
         </div>
         <div className={styles.cardLastLine}>
-          <h3 className={styles.cardValue}>{cardData.services}</h3>
+          <h3 className={styles.cardValue}>
+            {cardData?.services ? cardData.services : 0}
+          </h3>
         </div>
       </div>
       <div className={styles.card}>
@@ -111,7 +113,9 @@ function CardData({ cardData }: storeCarddata) {
           <h4 className={styles.cardtitle}>Services Sold</h4>
         </div>
         <div className={styles.cardLastLine}>
-          <h3 className={styles.cardValue}>{cardData.serviceSold}</h3>
+          <h3 className={styles.cardValue}>
+            {cardData?.serviceSold ? cardData.serviceSold : 0}
+          </h3>
         </div>
       </div>
     </div>

@@ -26,7 +26,6 @@ const getCardData = async (storeId: number) => {
     return {
       success: false,
       message: "Something went wrong",
-      data: { revenue: 0, services: 0, serviceSold: 0 },
     };
   }
 };
