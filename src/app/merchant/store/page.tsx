@@ -64,7 +64,7 @@ interface TablesSection {
   bestUser: StoreTables["bestUser"][];
 }
 
-async function CardData({ cardData }: storeCarddata) {
+function CardData({ cardData }: storeCarddata) {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.mainCard}>
@@ -118,7 +118,7 @@ async function CardData({ cardData }: storeCarddata) {
   );
 }
 
-async function SubHeader({ activeStore }: storeData) {
+function SubHeader({ activeStore }: storeData) {
   const router = useRouter();
 
   const editStore = () => {
@@ -229,7 +229,7 @@ async function SubHeader({ activeStore }: storeData) {
   );
 }
 
-async function StoreTable({
+function StoreTable({
   dataAvailable,
   tableRecords,
   bestProduct,

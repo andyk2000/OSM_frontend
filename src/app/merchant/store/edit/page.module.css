@@ -157,7 +157,6 @@
 .buttonsField {
   margin-block: 1rem;
   display: flex;
-  justify-content: space-between;
 }
 
 .publishButton {
@@ -171,6 +170,7 @@
   border-radius: 0.25rem;
   padding-block: 0.5rem;
   cursor: pointer;
+  margin-right: 5rem;
 }
 
 .publishButton:hover {
@@ -199,6 +199,7 @@
   border-radius: 0.25rem;
   padding-block: 0.5rem;
   cursor: pointer;
+  margin-right: 5rem;
 }
 
 .saveButton:hover {

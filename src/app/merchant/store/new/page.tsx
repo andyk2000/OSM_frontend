@@ -288,12 +288,6 @@ export default function New() {
               <button type="submit" className={styles.publishButton}>
                 Publish
               </button>
-              <button type="button" className={styles.saveButton}>
-                Save
-              </button>
-              <button type="button" className={styles.saveButton}>
-                Save as Draft
-              </button>
               <button type="button" className={styles.deleteButton}>
                 Clear
               </button>

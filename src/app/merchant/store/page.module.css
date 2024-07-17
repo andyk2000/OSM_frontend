@@ -523,5 +523,9 @@
 }
 
 .deleteIcon {
+  color: rgb(62, 97, 172);
+}
+
+.deleteIcon:hover {
   color: rgb(255, 0, 0);
 }
