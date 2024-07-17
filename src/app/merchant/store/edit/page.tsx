@@ -46,7 +46,11 @@ export default function Edit() {
     ),
   });
 
-  const handleImageChange = (event: { currentTarget: HTMLInputElement }) => {
+  const handleImageChange = (event: {
+    target?: { dispatchEvent: (arg0: Event) => void };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    currentTarget?: any;
+  }) => {
     const file = event.currentTarget.files[0];
     if (file) {
       const reader = new FileReader();
