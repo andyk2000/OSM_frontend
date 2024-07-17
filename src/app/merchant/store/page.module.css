@@ -71,10 +71,17 @@
   align-items: center;
 }
 
-.locationText,
+.locationText {
+  color: rgba(62, 97, 172);
+  padding-left: 1rem;
+}
+
 .storeURLText {
   color: rgba(62, 97, 172);
   padding-left: 1rem;
+  width: 30rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .storeURLText:hover {
@@ -523,5 +530,9 @@
 }
 
 .deleteIcon {
+  color: rgb(62, 97, 172);
+}
+
+.deleteIcon:hover {
   color: rgb(255, 0, 0);
 }

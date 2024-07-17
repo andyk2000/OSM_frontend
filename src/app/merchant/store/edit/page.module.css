@@ -18,6 +18,14 @@
   background: transparent;
   border-style: none;
   cursor: pointer;
+  padding-block: 0.25rem;
+  padding-inline: 0.35rem;
+  border-radius: 3rem;
+  margin-left: 0.5rem;
+}
+
+.backButton:hover {
+  background-color: rgba(62, 97, 172, 0.1);
 }
 
 .pageTitle {
@@ -70,11 +78,11 @@
 }
 
 .linkSpace p {
-  margin-right: 2rem
+  margin-right: 2rem;
 }
 
 .storeURLText {
-  color:rgb(62, 97, 172);
+  color: rgb(62, 97, 172);
 }
 
 .storeURLText:hover {
@@ -157,7 +165,6 @@
 .buttonsField {
   margin-block: 1rem;
   display: flex;
-  justify-content: space-between;
 }
 
 .publishButton {
@@ -171,6 +178,7 @@
   border-radius: 0.25rem;
   padding-block: 0.5rem;
   cursor: pointer;
+  margin-right: 5rem;
 }
 
 .publishButton:hover {
@@ -199,6 +207,7 @@
   border-radius: 0.25rem;
   padding-block: 0.5rem;
   cursor: pointer;
+  margin-right: 5rem;
 }
 
 .saveButton:hover {
@@ -240,4 +249,31 @@
   border-color: rgb(200, 0, 0);
   border-radius: 0.25rem;
   padding-block: 0.5rem;
+}
+
+.publishText {
+  display: none;
+}
+
+.publishTextActive {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.spinner {
+  display: none;
+}
+
+.spinnerActive {
+  display: auto;
+  animation: rotate 2s linear infinite;
+  color: inherit;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

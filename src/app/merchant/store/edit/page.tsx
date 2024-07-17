@@ -29,11 +29,21 @@ const UpdateForm = () => {
     logo: "",
   });
 
+  const [originalStore, setOriginalStore] = useState<NewStore>({
+    name: "",
+    address: "",
+    description: "",
+    email: "",
+    phone: "",
+    logo: "",
+  });
+
   const [preview, setPreview] = useState<string>("");
   const [logoFile, setLogoFile] = useState<string>("");
   const [storeLink, setStoreLink] = useState<string>("");
   const [, setStoreName] = useState<string>("");
   const [imageChange, setImageChange] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object({
     name: Yup.string().required("* name is required"),
@@ -65,6 +75,7 @@ const UpdateForm = () => {
   };
 
   const submitStore = async (values: NewStore) => {
+    setLoading(true);
     const updatedStoreData = {
       ...values,
       logo: logoFile,
@@ -75,6 +86,7 @@ const UpdateForm = () => {
       if (updatedStore.success) {
         successUpdate();
       } else {
+        setLoading(false);
         failedUpdate();
       }
     } catch (error) {
@@ -83,6 +95,7 @@ const UpdateForm = () => {
   };
 
   const handleDelete = async () => {
+    setLoading(true);
     const id = parseInt(searchParams.get("id") || "");
     Swal.fire({
       title: "Are you sure?",
@@ -99,6 +112,7 @@ const UpdateForm = () => {
           if (storeDeleted.success) {
             successDelete();
           } else {
+            setLoading(false);
             failedDelete();
           }
         } catch (error) {
@@ -106,6 +120,7 @@ const UpdateForm = () => {
         }
       }
     });
+    setLoading(false);
   };
 
   const successDelete = () => {
@@ -150,6 +165,10 @@ const UpdateForm = () => {
 
   const searchParams = useSearchParams();
 
+  const handleRevert = () => {
+    setStore(originalStore);
+  };
+
   useEffect(() => {
     const initialData = async () => {
       const idString = searchParams.get("id");
@@ -158,6 +177,14 @@ const UpdateForm = () => {
         const results = await getStores(id);
         if (results.data && results.success) {
           setStore({
+            name: results.data.name,
+            email: results.data.email,
+            phone: results.data.phone,
+            description: results.data.description,
+            address: results.data.address,
+            logo: "",
+          });
+          setOriginalStore({
             name: results.data.name,
             email: results.data.email,
             phone: results.data.phone,
@@ -182,6 +209,7 @@ const UpdateForm = () => {
       validationSchema={validationSchema}
       enableReinitialize={true}
       onSubmit={submitStore}
+      onReset={handleRevert}
     >
       {() => (
         <Form className={styles.storeForm}>
@@ -357,18 +385,51 @@ const UpdateForm = () => {
             />
           </div>
           <div className={styles.buttonsField}>
-            <button type="submit" className={styles.publishButton}>
-              Publish
+            <button
+              type="submit"
+              className={styles.publishButton}
+              disabled={loading}
+            >
+              <text
+                className={clsx(styles.publishTextActive, {
+                  [styles.publishText]: loading === true,
+                })}
+              >
+                Publish
+              </text>
+              <Icon
+                icon="ph:spinner-gap"
+                height={25}
+                width={25}
+                className={clsx(styles.spinnerActive, {
+                  [styles.spinner]: loading === false,
+                })}
+              />
             </button>
-            <button type="button" className={styles.saveButton}>
+            <button type="reset" className={styles.saveButton}>
               Revert Changes
             </button>
             <button
               type="button"
               className={styles.deleteButton}
               onClick={handleDelete}
+              disabled={loading}
             >
-              Delete
+              <text
+                className={clsx(styles.publishTextActive, {
+                  [styles.publishText]: loading === true,
+                })}
+              >
+                Delete
+              </text>
+              <Icon
+                icon="ph:spinner-gap"
+                height={25}
+                width={25}
+                className={clsx(styles.spinnerActive, {
+                  [styles.spinner]: loading === false,
+                })}
+              />
             </button>
           </div>
         </Form>

@@ -7,14 +7,14 @@ import { NewStore } from "@/app/types/store.type";
 import { redirect } from "next/navigation";
 
 const createStore = async (store: NewStore) => {
+  console.log(store);
   try {
     const response = await axiosConfig.post("/store/", store);
     noStore();
-    console.log(true);
     return { success: true, data: response.data };
   } catch (error) {
     console.log(error);
-    return { success: false, message: "Something went wrong" };
+    return { success: false, message: error };
   }
 };
 

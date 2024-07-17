@@ -64,7 +64,7 @@ interface TablesSection {
   bestUser: StoreTables["bestUser"][];
 }
 
-async function CardData({ cardData }: storeCarddata) {
+function CardData({ cardData }: storeCarddata) {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.mainCard}>
@@ -80,7 +80,7 @@ async function CardData({ cardData }: storeCarddata) {
         </div>
         <div className={styles.mainCardLastLine}>
           <h3 className={styles.mainCardValue}>
-            {cardData.revenue ? cardData.revenue : 0}
+            {cardData?.revenue ? cardData.revenue : 0}
           </h3>
         </div>
       </div>
@@ -96,7 +96,9 @@ async function CardData({ cardData }: storeCarddata) {
           <h4 className={styles.cardtitle}>All Services</h4>
         </div>
         <div className={styles.cardLastLine}>
-          <h3 className={styles.cardValue}>{cardData.services}</h3>
+          <h3 className={styles.cardValue}>
+            {cardData?.services ? cardData.services : 0}
+          </h3>
         </div>
       </div>
       <div className={styles.card}>
@@ -111,14 +113,16 @@ async function CardData({ cardData }: storeCarddata) {
           <h4 className={styles.cardtitle}>Services Sold</h4>
         </div>
         <div className={styles.cardLastLine}>
-          <h3 className={styles.cardValue}>{cardData.serviceSold}</h3>
+          <h3 className={styles.cardValue}>
+            {cardData?.serviceSold ? cardData.serviceSold : 0}
+          </h3>
         </div>
       </div>
     </div>
   );
 }
 
-async function SubHeader({ activeStore }: storeData) {
+function SubHeader({ activeStore }: storeData) {
   const router = useRouter();
 
   const editStore = () => {
@@ -229,7 +233,7 @@ async function SubHeader({ activeStore }: storeData) {
   );
 }
 
-async function StoreTable({
+function StoreTable({
   dataAvailable,
   tableRecords,
   bestProduct,
@@ -440,6 +444,7 @@ export default function Store() {
           const data = await getCardData(activeStore.id);
           const tableData = await getPrimaryTableData(activeStore.id);
           const stats = await getStats(activeStore.id);
+          console.log(data);
           setCardData(data.data);
           setTableRecords(tableData.data);
           setBestUser(stats.data.users);

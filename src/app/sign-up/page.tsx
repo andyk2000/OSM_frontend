@@ -51,7 +51,6 @@ export default function SignUp() {
     user.names = values.names;
     user.email = values.email;
     user.password = values.password;
-    console.log(user);
     setLoading(true);
     const answer = await handleSubmit(user);
     if (typeof answer?.answer === "string") {
