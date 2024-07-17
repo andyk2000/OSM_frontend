@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import styles from "./page.module.css";
 import { Icon } from "@iconify/react";
 import * as Yup from "yup";
@@ -17,6 +17,7 @@ import {
 import Swal from "sweetalert2";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { EditPhotoSkeleton } from "../../skeleton/editDashboard";
 
 export default function Edit() {
   const [store, setStore] = useState({
@@ -220,46 +221,48 @@ export default function Edit() {
       >
         {() => (
           <Form className={styles.storeForm}>
-            <div className={styles.photoInput}>
-              <div
-                className={clsx(styles.photoFrameActive, {
-                  [styles.photoFrame]: preview.length > 0,
-                })}
-              >
-                <Icon
-                  icon="ph:camera"
-                  style={{ color: "rgb(62, 97, 172)" }}
-                  height={50}
-                  width={50}
+            <Suspense fallback={<EditPhotoSkeleton />}>
+              <div className={styles.photoInput}>
+                <div
+                  className={clsx(styles.photoFrameActive, {
+                    [styles.photoFrame]: preview.length > 0,
+                  })}
+                >
+                  <Icon
+                    icon="ph:camera"
+                    style={{ color: "rgb(62, 97, 172)" }}
+                    height={50}
+                    width={50}
+                  />
+                </div>
+                {preview ? (
+                  <Image
+                    src={preview}
+                    alt="Preview"
+                    className={clsx(styles.storeLogo, {
+                      [styles.storeLogoActive]: preview.length > 0,
+                    })}
+                    width={100}
+                    height={100}
+                  />
+                ) : (
+                  <div className={styles.storeLogoPlaceholder}>No Image</div>
+                )}
+                <Field
+                  dot={false}
+                  id="logo"
+                  name="logo"
+                  type="file"
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    handleImageChange(event);
+                    event.target.dispatchEvent(
+                      new Event("input", { bubbles: true }),
+                    );
+                  }}
+                  className={styles.imageInput}
                 />
               </div>
-              {preview ? (
-                <Image
-                  src={preview}
-                  alt="Preview"
-                  className={clsx(styles.storeLogo, {
-                    [styles.storeLogoActive]: preview.length > 0,
-                  })}
-                  width={100}
-                  height={100}
-                />
-              ) : (
-                <div className={styles.storeLogoPlaceholder}>No Image</div>
-              )}
-              <Field
-                dot={false}
-                id="logo"
-                name="logo"
-                type="file"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleImageChange(event);
-                  event.target.dispatchEvent(
-                    new Event("input", { bubbles: true }),
-                  );
-                }}
-                className={styles.imageInput}
-              />
-            </div>
+            </Suspense>
             <div className={styles.linkSpace}>
               <p>Store Url:</p>
               <Icon

@@ -79,6 +79,17 @@ export function SubHeaderSkeleton() {
       </div>
       <p>|</p>
       <div className={styles.editStoreSection}>
+        <div>
+          <Icon
+            icon="ph:trash"
+            height={25}
+            width={25}
+            className={styles.deleteIcon}
+          />
+        </div>
+      </div>
+      <p>|</p>
+      <div className={styles.editStoreSection}>
         <Icon
           icon="ph:pencil-simple-fill"
           style={{ color: "rgba(62, 97, 172)" }}

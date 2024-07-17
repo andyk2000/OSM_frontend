@@ -1,0 +1,26 @@
+.photoInput {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photoFrameActive {
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  margin-bottom: 1.5rem;
+  background: rgba(62, 97, 172, 0.2);
+  padding: 1.5rem;
+  border-radius: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.photoFrame {
+  display: none;
+}
+
+.storeLogoActive {
+  border-radius: 3rem;
+}
