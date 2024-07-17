@@ -23,7 +23,11 @@ const getCardData = async (storeId: number) => {
     noStore();
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, message: "Something went wrong", data: null };
+    return {
+      success: false,
+      message: "Something went wrong",
+      data: { revenue: 0, services: 0, serviceSold: 0 },
+    };
   }
 };
 
