@@ -1,4 +1,3 @@
-import { Field } from "formik";
 import styles from "./editDashboard.module.css";
 import { Icon } from "@iconify/react";
 
@@ -39,7 +38,7 @@ export function EditPhotoSkeleton() {
                 Store Name<span>*</span>
               </p>
             </div>
-            <Field
+            <input
               type="text"
               id="name"
               name="name"
@@ -59,7 +58,7 @@ export function EditPhotoSkeleton() {
                 Email<span>*</span>
               </p>
             </div>
-            <Field
+            <input
               type="email"
               id="email"
               name="email"
@@ -81,7 +80,7 @@ export function EditPhotoSkeleton() {
                 Address<span>*</span>
               </p>
             </div>
-            <Field
+            <input
               type="text"
               id="address"
               name="address"
@@ -101,7 +100,7 @@ export function EditPhotoSkeleton() {
                 Phone Number<span>*</span>
               </p>
             </div>
-            <Field
+            <input
               type="text"
               id="phone"
               name="phone"
@@ -112,11 +111,10 @@ export function EditPhotoSkeleton() {
         </div>
         <div className={styles.descriptionContainer}>
           <p>Store Description</p>
-          <Field
-            as="textarea"
+          <input
+            type="textarea"
             id="description"
             name="description"
-            rows="5"
             className={styles.textarea}
           />
         </div>
