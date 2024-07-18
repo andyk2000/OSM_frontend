@@ -140,7 +140,6 @@
 .buttonsField {
   margin-block: 1rem;
   display: flex;
-  /* justify-content: space-around; */
 }
 
 .publishButton {
@@ -154,20 +153,14 @@
   border-radius: 0.25rem;
   padding-block: 0.5rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .publishButton:hover {
-  font-size: 1rem;
-  font-weight: 700;
   color: rgb(62, 97, 172);
   background: transparent;
-  width: 10rem;
-  border-style: solid;
-  border-width: 1px;
-  border-color: rgb(62, 97, 172);
-  border-radius: 0.25rem;
-  padding-block: 0.5rem;
-  cursor: pointer;
 }
 
 .saveButton {
@@ -185,17 +178,8 @@
 }
 
 .saveButton:hover {
-  font-size: 1rem;
-  font-weight: 700;
   color: white;
   background: rgb(62, 97, 172);
-  width: 10rem;
-  border-style: solid;
-  border-width: 1px;
-  border-color: rgb(62, 97, 172);
-  border-radius: 0.25rem;
-  padding-block: 0.5rem;
-  cursor: pointer;
 }
 
 .deleteButton {
@@ -214,16 +198,8 @@
 }
 
 .deleteButton:hover {
-  font-size: 1rem;
-  font-weight: 700;
   color: white;
   background: rgb(62, 97, 172);
-  width: 10rem;
-  border-style: solid;
-  border-width: 1px;
-  border-color: rgb(62, 97, 172);
-  border-radius: 0.25rem;
-  padding-block: 0.5rem;
 }
 
 .publishText {
@@ -231,15 +207,18 @@
 }
 
 .publishTextActive {
+  display: inline-block;
   font-size: 1rem;
   font-weight: 700;
 }
+
 .spinner {
   display: none;
 }
 
 .spinnerActive {
-  display: auto;
+  color: inherit;
+  display: inline-block;
   animation: rotate 2s linear infinite;
 }
 

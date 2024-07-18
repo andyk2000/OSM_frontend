@@ -64,7 +64,6 @@ export default function New() {
     };
     try {
       const createdStore = await createStore(updatedStore);
-      console.log(createdStore.success);
       if (createdStore.success === true) {
         setLoading(false);
         successCreation();
@@ -73,6 +72,7 @@ export default function New() {
         failedCreation();
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -294,20 +294,19 @@ export default function New() {
                 className={styles.publishButton}
                 disabled={loading}
               >
-                <text
+                <span
                   className={clsx(styles.publishTextActive, {
-                    [styles.publishtext]: loading === false,
+                    [styles.publishText]: loading === false,
                   })}
                 >
                   Publish
-                </text>
+                </span>
                 <Icon
                   icon="ph:spinner-gap"
-                  style={{ color: "rgb(62, 97, 172)" }}
                   height={25}
                   width={25}
                   className={clsx(styles.spinner, {
-                    [styles.spinnerActive]: loading === true,
+                    [styles.spinnerActive]: loading,
                   })}
                 />
               </button>
