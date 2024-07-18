@@ -69,11 +69,16 @@
 .locationSection {
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 
 .locationText {
   color: rgba(62, 97, 172);
   padding-left: 1rem;
+  max-width: 10rem;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .storeURLText {

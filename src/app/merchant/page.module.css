@@ -39,7 +39,7 @@
   font-weight: 700;
   text-overflow: ellipsis;
   overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .email {
