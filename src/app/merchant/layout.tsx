@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
-import { getMerchantData } from "./action";
+import { getMerchantData, redirectHome } from "./action";
 
 const pagePaths = {
   dashboard: "/merchant/dashboard",
@@ -25,8 +25,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     const fetchMerchantData = async () => {
       const result = await getMerchantData();
       if (result.success && result.data) {
-        setEmail(result.data.email);
-        setNames(result.data.names);
+        if (result.data.role === "owner") {
+          setEmail(result.data.email);
+          setNames(result.data.names);
+        } else if (result.data.role === "customer") {
+          redirectHome();
+        }
       }
     };
 

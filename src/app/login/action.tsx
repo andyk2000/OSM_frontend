@@ -42,7 +42,7 @@ const handleSubmit = async (user: User): Promise<Message> => {
 };
 
 const pageRedirect = () => {
-  redirect("/merchant/dashboard");
+  redirect("/");
 };
 
 export { handleSubmit, pageRedirect };

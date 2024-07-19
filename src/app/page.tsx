@@ -1,97 +1,51 @@
-import Image from "next/image";
+"use client";
+
 import styles from "./page.module.css";
+import { useEffect, useState } from "react";
+import { getMerchantData, redirectToMerchantDashboard } from "./action";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
-  // const userData = () => {
-  //   return localStorage.getItem("token");
-  // };
+  const [accountType, setAccountType] = useState("customer");
+
+  useEffect(() => {
+    const fetchMerchantData = async () => {
+      const result = await getMerchantData();
+      setAccountType(result.data.role);
+    };
+    fetchMerchantData();
+  }, []);
+
+  const handleClick = () => {
+    redirectToMerchantDashboard();
+  };
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
+      <div className={styles.imageFrame}>
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          src="/image/shopping-bag.png"
+          alt="Preview"
+          className={styles.storeLogo}
+          width={80}
+          height={80}
         />
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <p className={styles.SignIn}>
+        You Do not Have an account Register{" "}
+        <Link href="/sign-up" className={styles.Link}>
+          Here
+        </Link>
+      </p>
+      <div className={styles.buttonSection}>
+        {accountType === "owner" && (
+          <button onClick={handleClick} className={styles.dashboardBttn}>
+            Go to dashboard
+          </button>
+        )}
+      </div>
+      <div className={styles.buttonSection}>
+        {accountType === "customer" && <p>No stores are available yet</p>}
       </div>
     </main>
   );

@@ -57,8 +57,8 @@ export default function Login() {
       redirect: false,
       username: values.email,
       password: values.password,
-      // callbackUrl: "/merchant/dashboard",
     });
+    console.log(result);
     if (!result?.ok) {
       Swal.fire({
         title: "Login failed",

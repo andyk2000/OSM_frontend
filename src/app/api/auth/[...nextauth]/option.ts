@@ -23,9 +23,8 @@ export const nextOptions: NextAuthOptions = {
           if (res && user) {
             return { id: "id", access_token: user.token };
           }
-          console.log(res);
           return null;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
           console.log(error);
           return null;

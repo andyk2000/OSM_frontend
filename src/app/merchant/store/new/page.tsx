@@ -35,6 +35,7 @@ export default function New() {
     description: Yup.string().required(
       "* the description of the store is needed",
     ),
+    logo: Yup.mixed().required(" * Logo of the store is needed"),
   });
 
   const handleImageChange = (event: {
@@ -151,7 +152,14 @@ export default function New() {
                   height={100}
                 />
               ) : (
-                <div className={styles.storeLogoPlaceholder}>No Image</div>
+                <>
+                  <div className={styles.storeLogoPlaceholder}>No Image</div>
+                  <ErrorMessage
+                    name="logo"
+                    component="div"
+                    className={styles.errorMessage}
+                  />
+                </>
               )}
               <Field
                 dot={false}
