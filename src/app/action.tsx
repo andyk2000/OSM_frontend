@@ -13,8 +13,8 @@ const getMerchantData = async () => {
   }
 };
 
-const redirectHome = () => {
-  redirect("/");
+const redirectToMerchantDashboard = () => {
+  redirect("/merchant/dashboard");
 };
 
-export { getMerchantData, redirectHome };
+export { getMerchantData, redirectToMerchantDashboard };
