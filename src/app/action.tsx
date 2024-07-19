@@ -1,6 +1,7 @@
 "use server";
 
 import axiosConfig from "@/api.config/axios.config";
+import { redirect } from "next/navigation";
 
 const getMerchantData = async () => {
   try {
@@ -12,4 +13,8 @@ const getMerchantData = async () => {
   }
 };
 
-export { getMerchantData };
+const redirectToMerchantDashboard = () => {
+  redirect("/merchant/dashboard");
+};
+
+export { getMerchantData, redirectToMerchantDashboard };

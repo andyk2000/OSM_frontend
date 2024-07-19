@@ -2,9 +2,8 @@
 
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { getMerchantData } from "./action";
-import clsx from "clsx";
+import { getMerchantData, redirectToMerchantDashboard } from "./action";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -19,15 +18,34 @@ export default function Home() {
   }, []);
 
   const handleClick = () => {
-    console.log(accountType);
+    redirectToMerchantDashboard();
   };
   return (
     <main className={styles.main}>
-      <Link href="/sign-up">Register Here</Link>
-      <div className={styles.pagecontainer}>
+      <div className={styles.imageFrame}>
+        <Image
+          src="/image/shopping-bag.png"
+          alt="Preview"
+          className={styles.storeLogo}
+          width={80}
+          height={80}
+        />
+      </div>
+      <p className={styles.SignIn}>
+        You Do not Have an account Register{" "}
+        <Link href="/sign-up" className={styles.Link}>
+          Here
+        </Link>
+      </p>
+      <div className={styles.buttonSection}>
         {accountType === "owner" && (
-          <button onClick={handleClick}>Go to dashboard</button>
+          <button onClick={handleClick} className={styles.dashboardBttn}>
+            Go to dashboard
+          </button>
         )}
+      </div>
+      <div className={styles.buttonSection}>
+        {accountType === "customer" && <p>No stores are available yet</p>}
       </div>
     </main>
   );
